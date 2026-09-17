@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="standard">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#B8551D">
+<title>爪爪星球 · 门店后台</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<section id="login" class="login">
+  <div class="login-card">
+    <div class="brand-mark">🐾</div>
+    <h1>爪爪星球 · 门店后台</h1>
+    <p class="login-sub">退款审核 · 订单核销 · 配置管理</p>
+
+    <!-- 登录表单 -->
+    <form id="loginForm" autocomplete="on">
+      <label class="field">
+        <span>登录账号</span>
+        <input id="usernameInput" type="text" placeholder="例如 manager" autocomplete="username">
+      </label>
+      <label class="field">
+        <span>登录口令</span>
+        <input id="passwordInput" type="password" placeholder="请输入登录口令" autocomplete="current-password">
+      </label>
+      <button id="loginBtn" type="submit" class="btn btn-primary">登录</button>
+    </form>
+
+    <!-- 首次登录强制改密（服务端也会拦，这里只是把话说明白） -->
+    <form id="pwdForm" hidden>
+      <p class="login-sub" style="margin-bottom:14px">
+        这是初始口令，<b>必须先改成自己的口令</b>才能使用后台。
+      </p>
+      <label class="field">
+        <span>当前口令</span>
+        <input id="oldPwdInput" type="password" autocomplete="current-password">
+      </label>
+      <label class="field">
+        <span>新口令</span>
+        <input id="newPwdInput" type="password" placeholder="至少 8 位，含字母与数字/符号" autocomplete="new-password">
+      </label>
+      <label class="field">
+        <span>确认新口令</span>
+        <input id="newPwd2Input" type="password" autocomplete="new-password">
+      </label>
+      <button id="pwdBtn" type="submit" class="btn btn-primary">设置新口令并进入</button>
+    </form>
+
+    <p id="loginErr" class="login-err" hidden></p>
+    <p class="login-hint" id="loginHint">
+      账号由店长在后台「账号管理」里创建；忘记口令请联系店长重置。
+    </p>
+  </div>
+</section>
+
+<div id="shell" class="shell" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="side-brand">
+      <span class="brand-mark sm">🐾</span>
+      <span class="side-brand-text">爪爪星球</span>
+    </div>
+    <nav id="sideNav" class="side-nav"></nav>
+    <div class="side-foot">
+      <div class="theme-label">界面主题</div>
+      <div class="theme-pick" id="themePick"></div>
+      <div class="who" id="whoami"></div>
+      <button id="pwdBtn2" class="btn btn-ghost sm" hidden>修改我的口令</button>
+      <button id="logoutBtn" class="btn btn-ghost sm">退出登录</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn menu-btn" aria-label="展开菜单">☰</button>
+      <h2 id="pageTitle" class="page-title">待审看板</h2>
+      <div class="topbar-right">
+        <span class="role-chip" id="roleChip" hidden></span>
+        <button id="bellBtn" class="icon-btn bell" title="有新的退款申请">
+          🔔<span id="bellBadge" class="badge" hidden>0</span>
+        </button>
+      </div>
+    </header>
+    <div id="view" class="view"></div>
+  </main>
+
+  <nav id="tabBar" class="tabbar"></nav>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+<div id="overlay" class="overlay" hidden></div>
+
+<script src="vendor/qrcode.min.js"></script>
+<script src="app.js"></script>
+<script src="config.js"></script>
+</body>
+</html>

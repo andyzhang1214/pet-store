@@ -1,0 +1,147 @@
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 24rpx;
+}
+
+.hero-thumb {
+  flex: none;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+  color: var(--brand-text);
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-name {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.hero-desc {
+  font-size: 25rpx;
+  color: var(--muted);
+  margin-top: 12rpx;
+  line-height: 1.6;
+}
+
+.sku-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.sku-item {
+  width: calc(50% - 8rpx);
+  box-sizing: border-box;
+  padding: 20rpx 24rpx;
+  border-radius: var(--radius-sm);
+  background: var(--card-muted);
+  border: 2rpx solid transparent;
+}
+
+.sku-item.on {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+/* 售罄规格保持可点但视觉上明确不可选，点击由 js 拦截，避免用户以为漏了反馈 */
+.sku-item.off {
+  opacity: 0.45;
+}
+
+.sku-name {
+  font-size: 27rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sku-price {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--brand);
+  margin-top: 8rpx;
+}
+
+.sku-stock {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 4rpx;
+}
+
+.qty-card .card-title {
+  margin-bottom: 12rpx;
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.qty-btn {
+  width: 68rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  background: var(--card-muted);
+  color: var(--ink);
+  font-size: 34rpx;
+}
+
+.qty-value {
+  min-width: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.qty-hint {
+  font-size: 23rpx;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.tip-card {
+  font-size: 23rpx;
+  color: var(--muted);
+  line-height: 1.7;
+  padding: 0 8rpx 180rpx;
+}
+
+/* 底部固定操作条：详情页内容可滚动，下单入口必须常驻可见 */
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 20rpx 24rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: var(--card);
+  border-top: 2rpx solid var(--line);
+}
+
+.bar-price {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.bar-btn {
+  flex: 1;
+}
+
+.back-btn {
+  margin-top: 24rpx;
+  display: inline-block;
+  padding: 0 48rpx;
+}

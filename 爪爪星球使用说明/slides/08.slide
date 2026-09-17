@@ -1,0 +1,35 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>安全与留痕：让每一笔都可自证</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>资金动作的操作人由服务端从登录态解析，请求体里没有可伪造的字段</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ width: 560 }}>
+      <Image src="assets/audit_log.png" style={{ width: 560, height: 318, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 8 }}>配置变更审计：改价 128→138、盘点 40→37、调次 7→8，操作人、前后值、原因齐全</Text>
+      <Image src="assets/force_pwd.png" style={{ width: 560, height: 168, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8', marginTop: 12 }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 8 }}>新账号首次登录强制改密，初始口令不长期有效</Text>
+    </Box>
+    <Box style={{ flex: 1, gap: 12 }}>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>角色权限分层</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.65, marginTop: 6 }}>盘点核销店员可做；改价、改档位、退款审核须店长；审计记录全员可查 —— 店员也能自证「改价不是我干的」。</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>并发防重</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.65, marginTop: 6 }}>核销、结算、支付回调全部走 CAS 状态机：双击、并发重复提交只会成功一次，杜绝重复扣款。</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>只记真变更</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.65, marginTop: 6 }}>审计按字段比对，只为真正变化的字段落行；点了保存但什么都没改，不会产生噪音记录。</Text>
+      </Box>
+      <Box style={{ background: '#4E7A62', borderRadius: 12, padding: '12px 18px' }}>
+        <Text style={{ fontSize: 14.5, color: '#FFFFFF', lineHeight: 1.6 }}>✅ 生产红线：mock 登录与模拟支付回调强制关闭，共享令牌禁用，非白名单 profile 拒绝启动。</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>08 / 10</Text>
+  </Box>
+</Slide>

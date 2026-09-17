@@ -1,0 +1,506 @@
+/* ==========================================================================
+   三主题 token —— 与微信小程序 app.wxss 同一套色值，
+   所以在小程序里选「喵喵主题」，后台也是喵喵风，两端观感一致。
+   ========================================================================== */
+:root[data-theme="standard"]{
+  --bg:#F7F4F0; --card:#FFFFFF; --card-soft:#FAF7F4;
+  --ink:#2B2118; --muted:#776A5E; --line:#E3D9CE;
+  --brand:#B8551D; --brand-soft:#F9EFE7; --brand-text:#7E3710;
+  --ok:#52C41A; --warn:#FAAD14; --danger:#FF4D4F;
+  --radius:18px; --radius-sm:11px; --shadow:0 4px 18px rgba(43,33,24,.07);
+}
+:root[data-theme="meow"]{
+  --bg:#FFF6F8; --card:#FFFFFF; --card-soft:#FFF0F4;
+  --ink:#4A2C35; --muted:#A37E8A; --line:#F5DCE4;
+  --brand:#E8638C; --brand-soft:#FDE8EF; --brand-text:#C2426B;
+  --ok:#52C41A; --warn:#FAAD14; --danger:#FF4D4F;
+  --radius:24px; --radius-sm:15px; --shadow:0 4px 18px rgba(232,99,140,.10);
+}
+:root[data-theme="woof"]{
+  --bg:#F2F7FC; --card:#FFFFFF; --card-soft:#E9F2FA;
+  --ink:#1F3346; --muted:#6D8299; --line:#D6E4F0;
+  --brand:#2E7CD6; --brand-soft:#E1EEFB; --brand-text:#1D5CA8;
+  --ok:#52C41A; --warn:#FAAD14; --danger:#FF4D4F;
+  --radius:24px; --radius-sm:15px; --shadow:0 4px 18px rgba(46,124,214,.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+code{background:var(--card-soft);padding:1px 6px;border-radius:6px;font-size:12px}
+[hidden]{display:none !important}
+
+/* ============================ 登录 ============================ */
+.login{min-height:100dvh;display:grid;place-items:center;padding:24px}
+.login-card{
+  width:100%;max-width:390px;background:var(--card);border-radius:var(--radius);
+  padding:36px 30px;box-shadow:var(--shadow);text-align:center;
+}
+.brand-mark{
+  width:62px;height:62px;margin:0 auto 14px;border-radius:20px;background:var(--brand-soft);
+  display:grid;place-items:center;font-size:30px;
+}
+.brand-mark.sm{width:34px;height:34px;border-radius:11px;font-size:17px;margin:0}
+.login-card h1{font-size:19px;font-weight:600;letter-spacing:.2px}
+.login-sub{color:var(--muted);font-size:13px;margin-top:6px}
+.field{display:block;text-align:left;margin:26px 0 18px}
+.field span{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}
+.field input{
+  width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  font-size:15px;background:var(--card-soft);color:var(--ink);outline:none;transition:.18s;
+}
+.field input:focus{border-color:var(--brand);background:var(--card);box-shadow:0 0 0 3px var(--brand-soft)}
+.login-err{color:var(--danger);font-size:13px;margin-top:14px}
+.login-hint{color:var(--muted);font-size:12px;margin-top:20px;line-height:1.7}
+
+/* ============================ 按钮 ============================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 18px;border-radius:var(--radius-sm);font-size:14px;font-weight:500;
+  transition:.16s;white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-primary[disabled]{opacity:.45;cursor:not-allowed}
+/*
+ * 通栏主按钮只属于「整块表单只有一个主操作」的场景：登录卡片、弹层操作区、卡片内表单提交。
+ * 早先把 width:100% 直接写在 .btn-primary 上，导致列表行里的「通过并退款」被拉成整条、
+ * 旁边的「驳回」被挤到下一行 —— 列表行按钮必须保持自然宽度，所以这里按场景收窄。
+ */
+.login-card .btn-primary,
+.card > .btn-primary{width:100%;padding:13px}
+.btn-ghost{background:var(--brand-soft);color:var(--brand-text)}
+.btn-ghost:hover{filter:brightness(.97)}
+.btn-danger{background:#FFECEC;color:#C0392B}
+.btn-danger:hover{background:#FFE0E0}
+.btn.sm{padding:7px 13px;font-size:13px}
+.btn.xs{padding:5px 11px;font-size:12px;border-radius:9px}
+
+/* ============================ 框架 ============================ */
+.shell{display:grid;grid-template-columns:236px 1fr;min-height:100dvh}
+
+.sidebar{
+  background:var(--card);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;padding:20px 14px;gap:8px;
+}
+.side-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 18px}
+.side-brand-text{font-weight:600;font-size:15px;letter-spacing:.3px}
+.side-nav{display:flex;flex-direction:column;gap:3px;flex:1;overflow-y:auto}
+.nav-item{
+  display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:var(--radius-sm);
+  font-size:14px;color:var(--muted);transition:.15s;text-align:left;width:100%;
+}
+.nav-item:hover{background:var(--card-soft);color:var(--ink)}
+.nav-item.active{background:var(--brand-soft);color:var(--brand-text);font-weight:500}
+.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.nav-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-foot{padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.theme-label{font-size:11px;color:var(--muted);padding-left:4px}
+.theme-pick{display:flex;gap:6px}
+.theme-dot{
+  flex:1;padding:7px 0;border-radius:9px;background:var(--card-soft);
+  font-size:11px;color:var(--muted);border:1.5px solid transparent;transition:.15s;
+}
+.theme-dot.on{border-color:var(--brand);color:var(--brand-text);background:var(--brand-soft);font-weight:500}
+
+.main{display:flex;flex-direction:column;min-width:0}
+.topbar{
+  display:flex;align-items:center;gap:12px;padding:16px 26px;
+  background:var(--card);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:20;
+}
+.page-title{font-size:17px;font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  width:38px;height:38px;border-radius:11px;background:var(--card-soft);
+  display:grid;place-items:center;font-size:16px;position:relative;transition:.15s;
+}
+.icon-btn:hover{background:var(--brand-soft)}
+.menu-btn{display:none}
+.badge{
+  position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;
+  background:var(--danger);color:#fff;border-radius:9px;font-size:11px;font-weight:600;
+  display:grid;place-items:center;line-height:1;border:2px solid var(--card);
+}
+.bell.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:rotate(0)}10%{transform:rotate(12deg)}20%{transform:rotate(-10deg)}30%{transform:rotate(6deg)}40%{transform:rotate(-4deg)}50%{transform:rotate(0)}}
+
+.view{padding:24px 26px 40px;flex:1;min-width:0}
+.tabbar{display:none}
+
+/* ============================ 卡片与列表 ============================ */
+.grid{display:grid;gap:16px}
+.grid.stats{grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.grid.cards{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.card-title{font-size:15px;font-weight:600;flex:1}
+.card-desc{font-size:12.5px;color:var(--muted);margin:-6px 0 14px;line-height:1.65}
+
+.stat{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.stat-label{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.stat-value{font-size:29px;font-weight:600;margin-top:7px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.stat-value.warn{color:var(--brand)}
+.stat-hint{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* 卡片内的通用文字层（.sku-card / .log-card 共用）。
+   原来的 .row / .row-main / .row-actions / .amount 是「一行式长条」的骨架，
+   所有列表改成卡片后已无引用，一并删除以免后人误用回长条。 */
+.row-title{font-weight:500;font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+/* overflow-wrap 而不是 word-break:break-all —— 后者空间不够时会在词中间硬断
+   （卡片里出现 "shared-token(de / v)" 这种断法），anywhere 会先尝试在空格处折行，
+   真的遇到超长无空格串才逐字断。 */
+.row-sub{font-size:12.5px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+
+.tag{
+  display:inline-block;padding:2px 9px;border-radius:999px;
+  background:var(--brand-soft);color:var(--brand-text);font-size:11.5px;font-weight:500;
+}
+.tag.ok{background:#EAF7E4;color:#3B7A15}
+.tag.warn{background:#FFF4E0;color:#9A6400}
+.tag.danger{background:#FFECEC;color:#C0392B}
+.tag.muted{background:var(--card-soft);color:var(--muted)}
+
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.seg-item{
+  padding:7px 14px;border-radius:999px;background:var(--card);font-size:13px;color:var(--muted);
+  box-shadow:var(--shadow);transition:.15s;
+}
+.seg-item.on{background:var(--brand);color:#fff;font-weight:500}
+
+.empty{text-align:center;padding:44px 20px;color:var(--muted)}
+.empty-icon{font-size:38px;display:block;margin-bottom:10px;opacity:.65}
+.empty-text{font-size:13.5px}
+
+.verify-input{
+  width:100%;padding:16px;border:2px solid var(--line);border-radius:var(--radius-sm);
+  font-size:22px;letter-spacing:6px;text-align:center;font-variant-numeric:tabular-nums;
+  background:var(--card-soft);color:var(--ink);outline:none;transition:.18s;
+}
+.verify-input:focus{border-color:var(--brand);background:var(--card);box-shadow:0 0 0 4px var(--brand-soft)}
+
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-size:13px}
+.kv-k{color:var(--muted)}
+.kv-v{text-align:right;word-break:break-all}
+.hr{height:1px;background:var(--line);margin:12px 0}
+
+/* ============================ 浮层与提示 ============================ */
+.toast{
+  position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:120;
+  background:rgba(30,24,18,.93);color:#fff;padding:11px 20px;border-radius:999px;
+  font-size:13.5px;max-width:88vw;text-align:center;
+  animation:toastIn .22s ease-out;
+}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+.overlay{position:fixed;inset:0;background:rgba(30,24,18,.42);z-index:60;animation:fade .18s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+.sheet{
+  position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:80;
+  background:var(--card);border-radius:var(--radius);padding:22px;width:min(420px,92vw);
+  box-shadow:0 18px 50px rgba(0,0,0,.22);
+}
+.sheet h3{font-size:15.5px;font-weight:600;margin-bottom:10px}
+/* 流水弹层（库存流水 / 次卡流水）：内容是逐张堆叠的 .log-card，
+   所以弹层只要比卡片本身宽一点就够 —— 400px 减去左右各 22px 内边距，
+   里面每张卡片约 356px，比页面上的 .sku-card（309px）略宽一档。
+   曾经为了并排两列撑到 760px，但多数规格只有一两条记录，
+   两列空着一半反而像个空盒子；记录多时交给内部滚动即可。
+   做成 flex 纵向布局 + 让列表自己滚：标题与「关闭」始终留在视野里，
+   不会像整块 overflow 那样一滚就跟着跑掉。 */
+.sheet.logs{
+  display:flex;flex-direction:column;
+  width:min(400px,92vw);max-height:86vh;
+}
+/* flex 子项默认会被压缩：头部/描述/空态/按钮保持原高，只让列表伸缩 */
+.sheet.logs > h3,
+.sheet.logs > .card-desc,
+.sheet.logs > .empty,
+.sheet.logs > .sheet-actions{flex:none}
+.sheet.logs > .log-cards{
+  flex:1 1 auto;min-height:0;overflow:auto;
+  /* 滚到底不再把滚动链传给身后的页面 */
+  overscroll-behavior:contain;
+}
+.sheet .field{margin:14px 0}
+.sheet textarea{
+  width:100%;min-height:82px;padding:11px 13px;border:1px solid var(--line);
+  border-radius:var(--radius-sm);font-family:inherit;font-size:14px;resize:vertical;
+  background:var(--card-soft);color:var(--ink);outline:none;
+}
+.sheet textarea:focus{border-color:var(--brand);background:var(--card)}
+.sheet-actions{display:flex;gap:9px;margin-top:18px}
+.sheet-actions .btn{flex:1}
+
+/* ============================ 响应式 ============================ */
+@media (max-width:1024px){
+  .shell{grid-template-columns:1fr}
+  .menu-btn{display:grid}
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;width:260px;z-index:70;
+    transform:translateX(-100%);transition:transform .24s ease;
+    box-shadow:0 0 40px rgba(0,0,0,.16);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .view{padding:20px 20px 36px}
+  .topbar{padding:14px 20px}
+}
+
+@media (max-width:640px){
+  body{font-size:13.5px}
+  .shell{grid-template-columns:1fr;padding-bottom:64px}
+  .view{padding:16px 14px 28px}
+  .topbar{padding:12px 14px}
+  .page-title{font-size:16px}
+  .card{padding:16px;border-radius:16px}
+  .grid{gap:12px}
+  .grid.stats{grid-template-columns:repeat(2,1fr)}
+  .grid.cards{grid-template-columns:1fr}
+  .stat{padding:15px 16px;border-radius:16px}
+  .stat-value{font-size:25px}
+
+  /* 卡片网格：手机端退化为单列，操作按钮占满整行便于点按 */
+  .sku-cards,.log-cards{grid-template-columns:1fr;gap:10px}
+  .sku-card,.log-card{padding:12px}
+  .sku-card-actions .btn,.log-card > .log-actions .btn{flex:1}
+  .due-days{padding:3px 10px}
+
+  /* 手机端：底部导航，拇指可及 */
+  .tabbar{
+    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;
+    background:var(--card);border-top:1px solid var(--line);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+  }
+  .tab{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+    padding:5px 2px;border-radius:10px;color:var(--muted);font-size:10.5px;position:relative;
+  }
+  .tab.on{color:var(--brand-text);background:var(--brand-soft)}
+  .tab-ico{font-size:18px;line-height:1}
+  .tab .badge{top:0;right:12px}
+}
+
+/* ==========================================================================
+   账号体系与配置域（app.js 登录改造 + config.js）
+   ========================================================================== */
+
+/* 侧栏底部：当前登录身份 */
+.who{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:8px 10px;border-radius:var(--radius-sm);background:var(--card-soft);
+  font-size:12.5px;color:var(--ink);
+}
+.who b{font-weight:600}
+.who-role{color:var(--muted);font-size:11.5px;flex-shrink:0}
+
+/* 顶栏角色标签：一眼看出"我现在能改什么" */
+.role-chip{
+  font-size:11.5px;padding:3px 9px;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--line);color:var(--muted);background:var(--card-soft);
+}
+.role-chip.mgr{color:var(--brand-text);background:var(--brand-soft);border-color:transparent}
+.role-chip.staff{color:var(--muted)}
+
+/* 表单控件：sheet 外的配置页也要能放输入框 / 下拉 / 多行文本 */
+.ctl{
+  width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--card-soft);color:var(--ink);font-size:14px;font-family:inherit;
+  outline:none;transition:border-color .15s,box-shadow .15s;
+}
+.ctl:focus{border-color:var(--brand);background:var(--card);box-shadow:0 0 0 3px var(--brand-soft)}
+textarea.ctl{resize:vertical;min-height:76px;line-height:1.6}
+.field .ctl{margin-top:0}
+
+/* 只读提示条：店员看到的"你没有改的权限" */
+.role-note{
+  display:flex;gap:8px;align-items:flex-start;
+  background:var(--card-soft);border-radius:var(--radius-sm);
+  padding:11px 13px;font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:16px;
+}
+
+/* 配置页的搜索行 */
+.searchbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.searchbar .ctl{flex:1;min-width:150px}
+.searchbar .btn{flex-shrink:0}
+
+/* 价目矩阵 */
+.price-grid{
+  display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  /* align-content 默认值 normal 在 grid 上等于 stretch：一旦这个网格被放进
+     会把它拉高的容器（例如 .sku-item 那种列向 flex + flex-wrap:wrap 的行），
+     所有网格行会被等高拉伸去填满容器 —— 表现是每个格子 195px 高、
+     里面只有一行 21px 的文字，白占三倍纵向空间，而且看起来像"间距没调好"。
+     显式 start + min-content 让行高只跟内容走，不随容器变形。 */
+  align-content:start;
+  grid-auto-rows:min-content;
+}
+.price-cell{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--card-soft);font-size:13px;
+}
+.price-cell.is-missing{border-color:#F3C9A0;background:#FFF8EF}
+.price-cell .pc-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.price-cell .pc-price{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* 库存/次数调整的数值高亮 */
+.nums{font-variant-numeric:tabular-nums;font-weight:600}
+.delta-up{color:#C0392B}
+.delta-down{color:#3B7A15}
+.missing-hint{color:#9A6400;font-size:11.5px}
+
+/* ============================ 卡片与列表 ============================ */
+
+/* 列表卡片网格：替代原 .sku-list > .sku-item 的"长条"排版。
+   长屏幕下 auto-fill 自适应多列，瀑布式排版。
+   短屏幕 (≤640px) 退化为单列，操作按钮占满整行便于拇指点按。 */
+.sku-cards{
+  display:grid;gap:12px;margin-top:12px;
+  grid-template-columns:repeat(auto-fill,minmax(232px,1fr));
+  align-content:start;
+}
+.sku-card{
+  display:flex;flex-direction:column;gap:9px;
+  padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--card-soft);position:relative;transition:box-shadow .15s,border-color .15s;
+}
+.sku-card:hover{box-shadow:var(--shadow);border-color:var(--brand-soft)}
+/* head 允许换行：名称很长时状态标签应整体折到第二行，而不是被压成一列汉字。
+   .tag 没写 white-space:nowrap，不放 wrap 就会被 flex 收缩到 min-content（一个汉字一行），
+   在 232px 宽的卡片里表现为「标签竖着排」。 */
+.sku-card-head{display:flex;align-items:flex-start;flex-wrap:wrap;gap:8px;min-height:24px}
+.sku-card-head > .tag{flex-shrink:0}
+/* 名称最多两行再省略：原来 nowrap + ellipsis 会把「皇家幼猫粮 2kg 尝鲜装」这类
+   真实商品名截成半截，且卡片里没有 tooltip，等于信息直接丢掉。
+   两行在不撑坏瀑布布局的前提下给出了完整名称。 */
+.sku-card-name{
+  font-size:14px;font-weight:600;flex:1 1 auto;min-width:0;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;line-height:1.4;word-break:break-word;
+}
+/* 卡片内的「标签行」：.sku-card 与 .log-card 共用，所以是中性名而不是 sku-card-meta */
+.chip-row{display:flex;flex-wrap:wrap;gap:5px 6px;font-size:12px}
+.meta-chip{
+  background:var(--card);padding:3px 9px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.meta-chip.price{color:var(--brand-text);background:var(--brand-soft);border-color:transparent;font-weight:600}
+.meta-chip.delta-up{color:#C0392B;border-color:transparent;font-weight:600}
+.meta-chip.delta-down{color:#3B7A15;border-color:transparent;font-weight:600}
+.meta-chip.warn{color:#9A6400;background:#FFF4E0;border-color:transparent}
+.sku-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px;border-top:1px dashed var(--line)}
+.sku-card-actions .btn{flex:1;min-width:0;justify-content:center}
+/* 卡片内可展开的二级区域（如服务的价目矩阵、等级的分类折扣） */
+.sku-card-extra{margin-top:8px;padding-top:10px;border-top:1px dashed var(--line)}
+/* 整个卡片可点击（如会员卡片的「打开详情」） */
+.sku-card-click{cursor:pointer}
+
+/* 记录型卡片：审计、健康看板、退款单、订单、预约、库存流水、次卡流水。
+   容器与 .sku-cards 同为瀑布式多列，长屏幕下并排铺开；
+   卡片自身是纵向结构（徽标/标题 → 标签行 → 明细 → 时间 → 动作），
+   不能再沿用 auto 1fr auto 那种横向栅格 —— 塞进 280px 的窄列会挤成一团。 */
+.log-cards{
+  display:grid;gap:12px;margin-top:12px;
+  grid-template-columns:repeat(auto-fill,minmax(286px,1fr));
+  align-content:start;
+}
+.log-card{
+  display:flex;flex-direction:column;gap:8px;
+  padding:13px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--card-soft);position:relative;transition:box-shadow .15s,border-color .15s;
+}
+.log-card:hover{box-shadow:var(--shadow);border-color:var(--brand-soft)}
+/* 用 order 收敛排布，而不是改各调用点的 HTML：
+   DOM 顺序不一致（流水类时间在前、看板类徽标在前），
+   统一在 CSS 里定序，新增记录型列表时套上 .log-card 就自动成型。 */
+.log-card > .due-days{order:0;align-self:flex-start}
+.log-card > .log-main{order:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.log-card > .log-time{order:2;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.log-card > .log-actions{
+  order:3;display:flex;gap:6px;flex-wrap:wrap;
+  margin-top:auto;padding-top:9px;border-top:1px dashed var(--line);
+}
+.log-card > .log-actions .btn{flex:1;min-width:0;justify-content:center}
+/* 记录卡片的标题里可能出现订单号、单号这类无空格长串（SO2026091600001），
+   窄列下不让它把卡片顶宽 —— 断行总比横向溢出好。 */
+.log-card .row-title{min-width:0;overflow-wrap:anywhere}
+
+/* 健康看板：到期剩余天数徽标，卡片顶部的小药丸（不再需要固定 72px 宽去对齐时间轴） */
+.due-days{
+  flex-shrink:0;padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:600;
+  background:var(--card-soft);color:var(--muted);white-space:nowrap;
+}
+.due-days.overdue{background:#FFECEC;color:#C0392B}
+.due-days.soon{background:#FFF4E0;color:#9A6400}
+
+/* 表单字段提示与勾选项（config.js 的表单弹层用） */
+.fhint{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.55}
+.fhint.warn{color:#9A6400}
+.fcheck{display:flex;align-items:center;gap:9px;margin:15px 0;font-size:13.5px;color:var(--ink)}
+.fcheck input{width:17px;height:17px;accent-color:var(--brand);flex-shrink:0}
+
+/* 卡片头部的操作按钮组 */
+.card-actions{display:flex;gap:7px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+
+/* 分页 */
+.pager{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;font-size:13px;color:var(--muted)}
+
+/* 任何按钮的禁用态都要看得出来 —— 只给 .btn-primary 加过，其余按钮禁用后看起来仍可点 */
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* 一行两列的紧凑表单（门店规则、卡类型这类字段多的表单） */
+.form-2col{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.form-2col{grid-template-columns:1fr}}
+
+/* ---------------- 扫码核销与出码 ---------------- */
+
+/* 核销台：确认按钮与扫码按钮并排 */
+.verify-actions{display:flex;gap:9px;margin-top:14px}
+.verify-actions .btn{flex:1}
+
+/* 摄像头扫码弹层里的取景框：竖版 3:4，黑底让画面边界清楚 */
+.scan-video{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:#000;display:block}
+
+/* 出码弹层：白底衬托二维码（深色主题下也保持白底，扫码器对比度优先） */
+.qr-wrap{display:flex;justify-content:center;padding:14px 0 4px}
+.qr-img{width:216px;height:216px;background:#fff;border-radius:12px;padding:10px;box-sizing:border-box}
+.qr-code-text{text-align:center;font-size:26px;font-weight:700;letter-spacing:8px;margin:10px 0 2px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ---------------- 数据统计 ---------------- */
+
+/* KPI 卡里的单位角标：120单 / 3人，单位不与数值同权重 */
+.stat-unit{font-size:13px;font-weight:400;color:var(--muted);margin-left:4px;letter-spacing:0}
+
+/* 近 7 日营收趋势：纯 CSS 双色柱状图，高度由内联 style 按峰值归一 */
+.trend-chart{
+  display:flex;align-items:flex-end;gap:8px;
+  height:172px;padding:4px 2px 0;
+}
+.trend-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;height:100%}
+.trend-bars{
+  flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px;
+  min-height:0;
+}
+.trend-bar{
+  width:min(15px,36%);border-radius:6px 6px 2px 2px;
+  background:var(--brand);transition:height .3s ease;
+}
+.trend-bar.goods{opacity:.32}
+.trend-day{font-size:11px;color:var(--muted);white-space:nowrap;flex-shrink:0}
+.legend{display:flex;align-items:center;gap:16px;margin-top:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.legend-dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.legend-right{margin-left:auto;font-variant-numeric:tabular-nums}
+@media (max-width:640px){
+  .trend-chart{gap:4px}
+  .trend-day{font-size:10px}
+  .legend{gap:10px}
+}

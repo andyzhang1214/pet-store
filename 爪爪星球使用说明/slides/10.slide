@@ -1,0 +1,45 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>快速上手</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>本机零依赖演示，五分钟跑通全部流程</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ width: 560, gap: 14 }}>
+      <Box style={{ background: '#2B241F', borderRadius: 12, padding: 18 }}>
+        <Text style={{ fontSize: 13, color: '#8A7A6D', marginBottom: 8 }}>① 启动后台（H2 内存库 + 演示数据）</Text>
+        <Text style={{ fontSize: 15, color: '#7ED6A5', lineHeight: 1.8, fontFamily: 'Menlo' }}>{`SPRING_PROFILES_ACTIVE=dev,demo \\
+mvn -o -Pdemo -pl petshop-admin spring-boot:run`}</Text>
+      </Box>
+      <Box style={{ background: '#2B241F', borderRadius: 12, padding: 18 }}>
+        <Text style={{ fontSize: 13, color: '#8A7A6D', marginBottom: 8 }}>② 打开门店后台</Text>
+        <Text style={{ fontSize: 15, color: '#7ED6A5', lineHeight: 1.8, fontFamily: 'Menlo' }}>{`http://localhost:8080/manage/index.html
+演示入口：账号管理里创建正式账号，
+首次登录强制改密后使用`}</Text>
+      </Box>
+      <Box style={{ background: '#2B241F', borderRadius: 12, padding: 18 }}>
+        <Text style={{ fontSize: 13, color: '#8A7A6D', marginBottom: 8 }}>③ 小程序端</Text>
+        <Text style={{ fontSize: 15, color: '#7ED6A5', lineHeight: 1.8, fontFamily: 'Menlo' }}>{`微信开发者工具导入 petshop-miniapp，
+mock 登录即可联调（wx.mock=true 仅限开发）`}</Text>
+      </Box>
+    </Box>
+    <Box style={{ flex: 1, gap: 12 }}>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>演示建议路线（10 分钟）</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.8, marginTop: 6 }}>小程序充值 300 → 预约洗护（余额担保）→ 后台「出码」→ 核销台扫码 → 到店结算选余额抵扣 → 审计页看留痕 → 会员页看健康看板。</Text>
+      </Box>
+      <Box style={{ background: '#FFF6EC', border: '1px solid #EADCC8', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 15, color: '#9A6400', lineHeight: 1.75 }}>{`⚠️ 上线前三件事：
+① 置 PETSHOP_WX_MOCK=false（关闭模拟登录/支付）
+② 摄像头扫码需 HTTPS 证书
+③ MySQL 就绪后使用 prod profile（H2 仅演示）`}</Text>
+      </Box>
+      <Box style={{ background: '#4E7A62', borderRadius: 12, padding: '14px 18px', marginTop: 'auto' }}>
+        <Text style={{ fontSize: 16, color: '#FFFFFF', lineHeight: 1.7 }}>一句话总结：顾客少跑腿，店员少记错，老板看得见 —— 每一笔钱、每一次改价，都有据可查。</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>10 / 10</Text>
+  </Box>
+</Slide>

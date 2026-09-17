@@ -1,0 +1,40 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>余额与次卡：怎么充、怎么扣、怎么查</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>顾客在小程序操作，门店结算自动联动 —— 下方为演示实测数字</Text>
+  </Box>
+  <Box style={{ flexDirection: 'row', gap: 18, alignItems: 'center', marginBottom: 18 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 20, alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#8A7A6D' }}>充值到账（300 本金 + 30 赠送）</Text>
+      <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#2B241F' }}>¥330</Text>
+    </Box>
+    <Text style={{ fontSize: 30, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#FFF6EC', border: '1px dashed #B8551D', borderRadius: 14, padding: 20, alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#B8551D' }}>预约时担保冻结（这部分暂时不能用）</Text>
+      <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#B8551D' }}>冻 ¥130</Text>
+    </Box>
+    <Text style={{ fontSize: 30, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#4E7A62', borderRadius: 14, padding: 20, alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#FFFFFF' }}>到店结算后扣掉（冻结解除）</Text>
+      <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#FFFFFF' }}>余 ¥200</Text>
+    </Box>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 18 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: 18 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D' }}>充值与赠送</Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>顾客选档位充值，赠送金随本金同时到账、当场可用；未消费的本金支持退款，赠送部分不退，规则透明。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: 18 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D' }}>次卡怎么扣</Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>预约预扣 1 次 → 到店核销正式扣 → 未到店自动回补。店长可人工加减次数，必须填写原因，顾客端同步可见。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: 18 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D' }}>每一笔都能查</Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>钱包流水记录每笔进出和变动后的余额，次卡流水记录每次扣补；顾客和门店看到的是同一本账。</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>08 / 08</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,18 @@
+<Slide style={{ width: 1280, height: 720, position: 'relative', background: '#FFFFFF', overflow: 'hidden' }}>
+  <Image src="assets/cover_hero.png" style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, objectFit: 'cover' }} />
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(90deg, rgba(43,36,31,0.72) 0%, rgba(43,36,31,0.42) 45%, rgba(43,36,31,0.05) 80%)' }} />
+  <Box style={{ position: 'absolute', left: 70, top: 150, width: 620 }}>
+    <Text style={{ fontSize: 22, color: '#F5EBDD', letterSpacing: 6, marginBottom: 18 }}>PET STORE ONE-STOP SYSTEM</Text>
+    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#FFFFFF', lineHeight: 1.25 }}>爪爪星球</Text>
+    <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#F5EBDD', marginTop: 10 }}>小程序 + 门店后台 使用说明</Text>
+    <Box style={{ flexDirection: 'row', gap: 12, marginTop: 36 }}>
+      <Box style={{ background: '#B8551D', borderRadius: 20, padding: '8px 22px' }}>
+        <Text style={{ fontSize: 18, color: '#FFFFFF' }}>预约 · 核销 · 结算 全流程</Text>
+      </Box>
+      <Box style={{ background: 'rgba(245,235,221,0.92)', borderRadius: 20, padding: '8px 22px' }}>
+        <Text style={{ fontSize: 18, color: '#2B241F' }}>余额 · 次卡 · 审计 一套账</Text>
+      </Box>
+    </Box>
+    <Text style={{ fontSize: 17, color: 'rgba(245,235,221,0.85)', marginTop: 40 }}>适用对象：门店店长 / 店员　　版本 2026-09</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.petshop</groupId>
+    <artifactId>petshop-server</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>petshop-common</artifactId>
+  <name>petshop-common</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <!--
+      MyBatis-Plus 在 petshop-common 里是 provided：
+      配置域审计表（ConfigAuditLog）需要它，但审计要被 mall / booking / wallet / member
+      四个模块共用，而这四个模块没有任何一个是公共祖先 —— 唯一共享点就是 common。
+      用 provided 而不是 compile，是为了不改变 common 对下游的传递依赖集合
+      （各模块本来就自己声明了 MyBatis-Plus，运行时一定在）。
+    -->
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>

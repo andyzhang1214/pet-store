@@ -1,0 +1,47 @@
+<view class="page theme-{{theme}}">
+  <!-- 宠物切换 -->
+  <scroll-view scroll-x class="pet-strip" wx:if="{{pets.length > 0}}">
+    <view
+      class="pet-chip {{selectedPetId === item.id ? 'on' : ''}}"
+      wx:for="{{pets}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="pickPet"
+    >{{item.type === 'CAT' ? '🐱' : '🐶'}} {{item.name}}</view>
+  </scroll-view>
+
+  <view wx:if="{{pets.length === 0}}" class="empty">
+    <text class="empty-icon">🐾</text>
+    先去「我的宠物」添加一位家庭成员吧
+  </view>
+
+  <block wx:if="{{selectedPetId}}">
+    <!-- 到期看板：7 天内橙 / 超期紫 / 正常绿 -->
+    <view class="due-grid">
+      <view class="due-card" wx:for="{{dueCards}}" wx:key="key">
+        <view class="due-head">
+          <text class="due-icon">{{item.icon}}</text>
+          <text class="due-title">{{item.title}}</text>
+          <text class="due-status {{item.statusCls}}">{{item.statusText}}</text>
+        </view>
+        <view class="due-desc">{{item.desc}}</view>
+      </view>
+    </view>
+
+    <!-- 时间轴（只读，由服务结算自动更新或门店补录） -->
+    <view class="card">
+      <view class="card-title">健康时间轴</view>
+      <view class="tl" wx:for="{{timeline}}" wx:key="id">
+        <view class="tl-icon">{{item.icon}}</view>
+        <view class="tl-body">
+          <view class="tl-title">{{item.typeText}} · {{item.logDate}}</view>
+          <view class="tl-sub" wx:if="{{item.nextDue}}">下次到期：{{item.nextDue}}</view>
+          <view class="tl-sub" wx:if="{{item.operator}}">操作：{{item.operator}}</view>
+        </view>
+      </view>
+      <view wx:if="{{timeline.length === 0}}" class="muted" style="text-align:center;padding:24rpx 0;">
+        暂无记录，服务完成后自动生成
+      </view>
+    </view>
+  </block>
+</view>

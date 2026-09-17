@@ -1,0 +1,135 @@
+.tab-bar {
+  white-space: nowrap;
+  margin-bottom: 24rpx;
+}
+
+.tab-item {
+  display: inline-block;
+  padding: 12rpx 32rpx;
+  margin-right: 16rpx;
+  border-radius: 999rpx;
+  background: var(--card);
+  font-size: 26rpx;
+  color: var(--muted);
+}
+
+.tab-item.on {
+  background: var(--brand);
+  color: #fff;
+  font-weight: 600;
+}
+
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.order-no {
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.status {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.status-warn { background: #FFF4E0; color: #9A6400; }
+.status-info { background: var(--brand-soft); color: var(--brand-text); }
+.status-ok { background: #EAF7E4; color: #3B7A15; }
+.status-muted { background: var(--card-muted); color: var(--muted); }
+
+/* 自提码是这张卡的核心信息，给足视觉权重，点一下即复制 */
+.verify-box {
+  background: var(--brand-soft);
+  border-radius: var(--radius-sm);
+  padding: 20rpx 24rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.verify-label {
+  font-size: 22rpx;
+  color: var(--brand-text);
+}
+
+.verify-code {
+  font-size: 46rpx;
+  font-weight: 700;
+  letter-spacing: 8rpx;
+  color: var(--brand-text);
+  margin-top: 8rpx;
+}
+
+.item-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+  font-size: 26rpx;
+  padding: 8rpx 0;
+}
+
+.item-name {
+  flex: 1;
+  min-width: 0;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-qty {
+  color: var(--muted);
+  font-size: 24rpx;
+}
+
+.item-price {
+  color: var(--ink);
+  min-width: 120rpx;
+  text-align: right;
+}
+
+.order-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.order-meta {
+  font-size: 23rpx;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.order-total {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--brand);
+  white-space: nowrap;
+}
+
+.order-total .price-symbol {
+  font-size: 26rpx;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.act {
+  padding: 0 36rpx;
+  line-height: 68rpx;
+  font-size: 26rpx;
+}
+
+.back-btn {
+  margin-top: 24rpx;
+  display: inline-block;
+  padding: 0 48rpx;
+}

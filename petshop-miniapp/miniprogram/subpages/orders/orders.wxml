@@ -1,0 +1,88 @@
+<view class="page theme-{{theme}}">
+  <scroll-view class="tab-bar" scroll-x>
+    <view
+      class="tab-item {{activeTab === item.key ? 'on' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="pickTab"
+    >{{item.name}}</view>
+  </scroll-view>
+
+  <block wx:if="{{orders.length > 0}}">
+    <view class="card order" wx:for="{{orders}}" wx:key="id">
+      <view class="order-head">
+        <view class="order-no">{{item.orderNo}}</view>
+        <view class="status status-{{item.statusCls}}">{{item.statusText}}</view>
+      </view>
+
+      <view
+        class="verify-box"
+        wx:if="{{item.status === 'PAID' && item.verifyCode}}"
+        data-code="{{item.verifyCode}}"
+        bindtap="copyCode"
+      >
+        <view class="verify-label">自提码（已复制到剪贴板）</view>
+        <view class="verify-code">{{item.verifyCode}}</view>
+      </view>
+
+      <!-- wx:key 用 skuId：同一订单出现两个同名商品时 name 会重复，key 重复会让列表复用错行 -->
+      <view class="item-row" wx:for="{{item.itemRows}}" wx:for-item="it" wx:key="skuId">
+        <view class="item-name">{{it.name}}</view>
+        <view class="item-qty">×{{it.qty}}</view>
+        <view class="item-price">¥{{it.priceText}}</view>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="order-foot">
+        <view class="order-meta">
+          <view class="meta-line">{{item.createdText}} · {{item.payText}}</view>
+          <view class="meta-line" wx:if="{{item.status !== 'CREATED'}}">
+            本金 ¥{{item.principalPaid}} · 赠送金 ¥{{item.giftPaid}}
+          </view>
+        </view>
+        <view class="order-total">
+          合计 <text class="price-symbol">¥</text>{{item.totalText}}
+        </view>
+      </view>
+
+      <view class="actions">
+        <view
+          class="btn-ghost act {{busyNo === item.orderNo ? 'busy' : ''}}"
+          wx:if="{{item.canPay}}"
+          data-no="{{item.orderNo}}"
+          bindtap="onTapPay"
+        >去支付</view>
+        <view
+          class="btn-ghost act {{busyNo === item.orderNo ? 'busy' : ''}}"
+          wx:if="{{item.canCancel}}"
+          data-no="{{item.orderNo}}"
+          bindtap="onTapCancel"
+        >取消订单</view>
+        <view
+          class="btn-ghost act {{busyNo === item.orderNo ? 'busy' : ''}}"
+          wx:if="{{item.canRefund}}"
+          data-no="{{item.orderNo}}"
+          bindtap="onTapRefund"
+        >申请退款</view>
+      </view>
+    </view>
+  </block>
+
+  <view class="empty" wx:elif="{{loading}}">
+    <text class="empty-icon">🧾</text>
+    正在加载订单…
+  </view>
+
+  <view class="empty" wx:elif="{{failed}}">
+    <text class="empty-icon">😿</text>
+    订单加载失败，下拉可重试
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">🛍</text>
+    这里还没有订单
+    <view class="btn-ghost back-btn" bindtap="goMall">去逛逛商城</view>
+  </view>
+</view>

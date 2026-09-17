@@ -1,0 +1,173 @@
+<wxs src="../../utils/fmt.wxs" module="fmt" />
+
+<view class="page theme-{{theme}}">
+
+  <!-- 门店信息（按约定展示在预约页） -->
+  <view class="card store-card" wx:if="{{step < 5}}">
+    <view class="store-name">{{store.name}}</view>
+    <view class="store-line">🕘 营业时间 {{store.businessHours}}</view>
+    <view class="store-line">📍 {{store.address}}</view>
+    <view class="store-line">📞 {{store.phone}}</view>
+  </view>
+
+  <!-- 步骤条 -->
+  <view class="steps" wx:if="{{step < 5}}">
+    <!-- steps 是字符串数组：按官方规定 wx:key 只能填 item 的字段名，
+         item 本身为字符串时用保留关键字 *this；写 "index" 会被当成 item.index（恒为 undefined）。
+         与 mall.wxml 的 categories 保持一致。 -->
+    <view class="step {{index < step ? 'done' : ''}} {{index + 1 === step ? 'active' : ''}}" wx:for="{{steps}}" wx:key="*this" data-step="{{index + 1}}" bindtap="goStep">
+      <view class="step-no">{{index + 1}}</view>
+      <view class="step-label">{{item}}</view>
+    </view>
+  </view>
+
+  <!-- 步骤 1：选服务 -->
+  <block wx:if="{{step === 1}}">
+    <view class="section-title">选择服务项目</view>
+    <view class="svc-grid">
+      <view class="svc-item" wx:for="{{services}}" wx:key="id" data-id="{{item.id}}" bindtap="pickService">
+        <view class="svc-icon">{{item.icon}}</view>
+        <view class="svc-name">{{item.name}}</view>
+        <view class="svc-cat">{{item.categoryText}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 步骤 2：选宠物 -->
+  <block wx:if="{{step === 2}}">
+    <view class="section-title">选择宠物</view>
+    <view class="card pet-item" wx:for="{{pets}}" wx:key="id" data-id="{{item.id}}" bindtap="pickPet">
+      <view class="pet-avatar">{{item.type === 'CAT' ? '🐱' : '🐶'}}</view>
+      <view class="pet-info">
+        <view class="pet-name">{{item.name}}</view>
+        <view class="pet-sub">{{item.type === 'CAT' ? '猫猫' : '狗狗'}} · {{item.hair === 'LONG' ? '长毛' : item.hair === 'MEDIUM' ? '中长毛' : '短毛'}}</view>
+      </view>
+      <view class="pet-arrow">›</view>
+    </view>
+    <view wx:if="{{pets.length === 0}}" class="empty">
+      <text class="empty-icon">🐾</text>
+      还没有添加宠物，先添加一位家庭成员吧
+    </view>
+
+    <view class="btn-ghost add-pet-btn" bindtap="togglePetForm">{{showPetForm ? '收起' : '+ 添加宠物'}}</view>
+
+    <view class="card" wx:if="{{showPetForm}}">
+      <view class="form-row">
+        <text class="form-label">名字</text>
+        <input class="form-input" placeholder="如：团子" value="{{petForm.name}}" data-field="name" bindinput="onPetFormInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">类型</text>
+        <picker range="{{['猫猫', '狗狗']}}" value="{{petForm.type === 'CAT' ? 0 : 1}}" bindchange="onPetFormType">
+          <view class="form-picker">{{petForm.type === 'CAT' ? '猫猫' : '狗狗'}}</view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">毛长</text>
+        <picker range="{{['短毛', '中长毛', '长毛']}}" value="{{petForm.hair === 'SHORT' ? 0 : petForm.hair === 'MEDIUM' ? 1 : 2}}" bindchange="onPetFormHair">
+          <view class="form-picker">{{petForm.hair === 'SHORT' ? '短毛' : petForm.hair === 'MEDIUM' ? '中长毛' : '长毛'}}</view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">体重(kg)</text>
+        <input class="form-input" type="digit" placeholder="选填" value="{{petForm.weight}}" data-field="weight" bindinput="onPetFormInput" />
+      </view>
+      <button class="btn-primary" bindtap="submitPetForm">保存宠物</button>
+    </view>
+  </block>
+
+  <!-- 步骤 3：选时段 -->
+  <block wx:if="{{step === 3}}">
+    <view class="section-title">{{selectedService.name}} · {{selectedPet.name}} · 报价 {{fmt.money(quoteData.price)}} 元</view>
+    <view class="date-strip">
+      <view class="date-cell {{selectedDate === item.value ? 'on' : ''}}" wx:for="{{dates}}" wx:key="value" data-value="{{item.value}}" bindtap="pickDate">
+        <view class="date-label">{{item.label}}</view>
+        <view class="date-weekday">{{item.weekday}}</view>
+      </view>
+    </view>
+    <view class="slot-grid">
+      <view
+        class="slot-cell {{item.full || item.past ? 'off' : ''}} {{selectedSlot === item.startTime ? 'on' : ''}}"
+        wx:for="{{slots}}"
+        wx:key="startTime"
+        data-start="{{item.startTime}}"
+        bindtap="{{item.full || item.past ? '' : 'pickSlot'}}"
+      >
+        <view class="slot-time">{{item.startTime}}</view>
+        <view class="slot-remain">{{item.past ? '已过' : item.full ? '已满' : '余 ' + item.remaining}}</view>
+      </view>
+    </view>
+    <view wx:if="{{slots.length === 0}}" class="empty">
+      <text class="empty-icon">🗓</text>
+      该日无可约时段
+    </view>
+  </block>
+
+  <!-- 步骤 4：确认预约 -->
+  <block wx:if="{{step === 4}}">
+    <view class="card">
+      <view class="confirm-row"><text class="muted">服务</text><text>{{selectedService.name}}（{{quoteData.specName}}）</text></view>
+      <view class="confirm-row"><text class="muted">宠物</text><text>{{selectedPet.name}}</text></view>
+      <view class="confirm-row"><text class="muted">时间</text><text>{{selectedDate}} {{selectedSlot}}</text></view>
+      <view class="confirm-row"><text class="muted">金额</text><text class="price">¥{{fmt.money(quoteData.price)}}</text></view>
+    </view>
+
+    <view class="section-title">预约担保方式</view>
+    <view class="guarantee-list">
+      <view class="guarantee-item {{guarantee === 'BALANCE' ? 'on' : ''}}" data-type="BALANCE" bindtap="pickGuarantee">
+        <view class="g-title">余额冻结</view>
+        <view class="g-desc" wx:if="{{walletInfo}}">可用 ¥{{fmt.money(walletInfo.available)}}，冻结 ¥{{fmt.money(quoteData.price)}}</view>
+        <view class="g-desc warn" wx:if="{{walletInfo && walletInfo.available < quoteData.price}}">可用余额不足，请先充值</view>
+      </view>
+      <view class="guarantee-item {{guarantee === 'CARD' ? 'on' : ''}} {{quoteData.usableCards.length === 0 ? 'off' : ''}}" data-type="CARD" bindtap="{{quoteData.usableCards.length === 0 ? '' : 'pickGuarantee'}}">
+        <view class="g-title">次卡预扣 1 次</view>
+        <view class="g-desc" wx:if="{{quoteData.usableCards.length === 0}}">暂无适用次卡</view>
+        <view class="g-desc" wx:else>可用次卡 {{quoteData.usableCards.length}} 张</view>
+      </view>
+      <view class="guarantee-item {{guarantee === 'NONE' ? 'on' : ''}} off" data-type="NONE">
+        <view class="g-title">免担保</view>
+        <view class="g-desc">本店需预约担保，不可用</view>
+      </view>
+    </view>
+
+    <view class="card" wx:if="{{guarantee === 'CARD' && quoteData.usableCards.length > 0}}">
+      <view class="card-title">选择担保次卡</view>
+      <view class="card-item {{selectedCardId === item.cardId ? 'on' : ''}}" wx:for="{{quoteData.usableCards}}" wx:key="cardId" data-id="{{item.cardId}}" bindtap="pickCard">
+        <text>🎫 {{item.name}}</text>
+        <text class="muted">余 {{item.remainTimes}} 次</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="form-row">
+        <text class="form-label">备注</text>
+        <input class="form-input" placeholder="选填，如：毛发打结请帮忙处理" value="{{remark}}" bindinput="onRemarkInput" />
+      </view>
+    </view>
+
+    <button class="btn-primary" loading="{{submitting}}" bindtap="submit">提交预约</button>
+  </block>
+
+  <!-- 步骤 5：预约成功 -->
+  <block wx:if="{{step === 5 && result}}">
+    <view class="card success-card">
+      <view class="success-icon">🎉</view>
+      <view class="success-title">预约成功</view>
+      <view class="success-desc">{{result.serviceName}} · {{result.petName}}</view>
+      <view class="success-time">{{result.slotDate}} {{result.startTime}}</view>
+
+      <view class="code-box">
+        <view class="code-label">到店出示核销码</view>
+        <view class="code-value">{{result.verifyCode}}</view>
+      </view>
+
+      <view class="notice" wx:if="{{result.vaccinePending === 1}}">⚠️ 疫苗记录已过期，寄养需门店确认后受理</view>
+      <view class="notice">到店后向店员出示核销码完成签到</view>
+
+      <view class="success-actions">
+        <view class="btn-ghost" bindtap="goMyAppointments">查看我的预约</view>
+        <view class="btn-primary" bindtap="restart">再约一单</view>
+      </view>
+    </view>
+  </block>
+</view>

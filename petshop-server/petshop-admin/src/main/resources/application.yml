@@ -1,0 +1,75 @@
+server:
+  port: 8080
+
+spring:
+  # 默认按 prod 启动（fail-closed）：漏配 SPRING_PROFILES_ACTIVE 时走生产校验，
+  # 启动守卫会因 JWT 默认密钥/共享令牌/wx.mock 直接拒绝启动，而不是裸奔上线。
+  # 本地联调必须显式 SPRING_PROFILES_ACTIVE=dev（或 dev,demo）。
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:prod}
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/petshop?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+      schema-locations: classpath:db/01_schema.sql
+      # 基础配置种子。本地想连演示业务数据一起灌，覆盖成：
+      #   PETSHOP_SQL_DATA=classpath:db/02_seed.sql,classpath:db/09_demo.sql
+      data-locations: ${PETSHOP_SQL_DATA:classpath:db/02_seed.sql}
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: assign_id
+
+petshop:
+  security:
+    # 限流与核销失败锁定按「客户端 IP」计数。默认只信 remoteAddr：
+    # X-Forwarded-For / X-Real-IP 是客户端可以随便写的请求头，直连部署时信任它
+    # 等于把限流开关交给攻击者（每次换一个头就是一份新配额）。
+    # 仅当部署在会剥离外部 XFF 的可信网关 / 云托管之后才置 true（对应审查 P2-3）。
+    trust-forwarded-headers: ${PETSHOP_TRUST_FORWARDED_HEADERS:false}
+  # dev 默认值仅用于本地联调；prod 环境必须通过环境变量注入，否则启动守卫会拒绝启动
+  jwt:
+    secret: ${PETSHOP_JWT_SECRET:petshop-dev-secret-change-me-in-production}
+    # 7 天 → 24 小时：缩短泄露窗口，配合前端 wx.checkSession 失效重登
+    ttl-hours: ${PETSHOP_JWT_TTL_HOURS:24}
+  admin:
+    # 共享令牌：仅限 dev / test，给本地联调与自动化脚本用。
+    # 它没有操作人身份（留痕落 shared-token(dev)），生产环境必须设 false，否则启动守卫拒绝启动。
+    token: ${PETSHOP_ADMIN_TOKEN:dev-admin-token}
+    shared-token-enabled: ${PETSHOP_ADMIN_SHARED_TOKEN_ENABLED:true}
+    # 后台令牌有效期（小时）。比会员令牌短：后台令牌能动钱，暴露窗口越小越好
+    token-ttl-hours: ${PETSHOP_ADMIN_TOKEN_TTL_HOURS:8}
+    # 初始店长账号引导：仅当 admin_user 表为空时创建一次，且强制首次登录改密。
+    # 生产环境不配 password 会直接拒绝启动 —— 一个没人能进的后台不算部署成功。
+    bootstrap:
+      username: ${PETSHOP_ADMIN_BOOTSTRAP_USERNAME:manager}
+      password: ${PETSHOP_ADMIN_BOOTSTRAP_PASSWORD:}
+      display-name: ${PETSHOP_ADMIN_BOOTSTRAP_NAME:店长}
+  wx:
+    # 仅 dev 允许 mock 登录/模拟支付回调；prod 必须置 false
+    mock: ${PETSHOP_WX_MOCK:true}
+    appid: ${WX_APPID:}
+    secret: ${WX_SECRET:}
+  notify:
+    # 接收退款提醒的店长 openid（逗号分隔）。留空 = 推送整条链路自动降级，只发后台角标
+    manager-openids: ${PETSHOP_MANAGER_OPENIDS:}
+    # 退款申请提醒模板 ID，需在微信公众平台申请后填入。留空 = 只发后台角标
+    refund-template-id: ${PETSHOP_REFUND_TEMPLATE_ID:}
+  mall:
+    # 未支付订单的关单阈值（分钟）。下单即锁库存，超时不清会把库存慢性漏干
+    order-timeout-minutes: ${PETSHOP_ORDER_TIMEOUT_MINUTES:15}
+    # 关单任务开关与节奏：每 60s 扫一轮，启动后 30s 才开始（避开启动高峰）
+    expiry-enabled: ${PETSHOP_EXPIRY_ENABLED:true}
+    expiry-scan-ms: ${PETSHOP_EXPIRY_SCAN_MS:60000}
+    expiry-initial-delay-ms: ${PETSHOP_EXPIRY_INITIAL_DELAY_MS:30000}
+    # 单轮扫描上限，防止积压时一次性把库拖住
+    expiry-batch-size: ${PETSHOP_EXPIRY_BATCH_SIZE:200}

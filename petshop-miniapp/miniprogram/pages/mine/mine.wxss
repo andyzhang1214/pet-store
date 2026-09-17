@@ -1,0 +1,52 @@
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 8rpx 32rpx;
+}
+.avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+}
+.profile-text { margin-left: 28rpx; }
+.nickname { font-size: 36rpx; font-weight: 700; color: var(--ink); }
+.level { font-size: 24rpx; color: var(--brand-text); margin-top: 8rpx; }
+
+/* 资金卡片 */
+.wallet-card { display: flex; padding: 32rpx 16rpx; }
+.wallet-cell { flex: 1; text-align: center; }
+.wallet-num { font-size: 34rpx; font-weight: 700; color: var(--ink); }
+.wallet-label { font-size: 22rpx; color: var(--muted); margin-top: 8rpx; }
+
+/* 功能列表 */
+.entry { display: flex; align-items: center; padding: 24rpx 0; border-bottom: 2rpx solid var(--line); }
+.entry:last-child { border-bottom: none; }
+.entry-icon { font-size: 44rpx; width: 72rpx; text-align: center; }
+.entry-text { flex: 1; margin-left: 12rpx; }
+.entry-title { font-size: 30rpx; font-weight: 600; color: var(--ink); }
+.entry-desc { font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+.entry-arrow { color: var(--muted); font-size: 40rpx; }
+
+/* 门店信息 */
+.store-row { font-size: 26rpx; color: var(--muted); line-height: 2; }
+.store-row.link { color: var(--brand-text); }
+
+/* 主题切换 */
+.theme-row { display: flex; gap: 20rpx; }
+.theme-chip {
+  flex: 1;
+  text-align: center;
+  padding: 28rpx 8rpx;
+  border-radius: var(--radius-sm);
+  border: 4rpx solid transparent;
+  background: var(--card-muted);
+}
+.theme-chip.on { border-color: var(--brand); }
+.theme-icon { font-size: 44rpx; }
+.theme-name { font-size: 26rpx; font-weight: 600; color: var(--ink); margin-top: 8rpx; }
+.theme-slogan { font-size: 20rpx; color: var(--muted); margin-top: 4rpx; }

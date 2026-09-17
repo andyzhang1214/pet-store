@@ -1,0 +1,14 @@
+{
+  "name": "petshop-miniapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "爪爪星球宠物生活馆小程序（原生 + TypeScript）",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "check:wxml": "node scripts/check-wxml.mjs miniprogram"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.12.0",
+    "typescript": "^5.5.0"
+  }
+}

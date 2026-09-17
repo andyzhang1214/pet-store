@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "petshop-pricing-dataset",
+  "version": "1.2.0",
+  "updatedAt": "2026-09-15",
+  "ssot": {
+    "statement": "本文件是价格、档位、折扣、演示数值的唯一事实来源。",
+    "consumers": [
+      "petshop-admin/src/main/resources/db/02_seed.sql（种子数据，人工保持同步，由 validate.mjs 断言）",
+      "petshop-prd/petshop-prd.html（分档价格矩阵 / 次卡类型 / 充值档位 / 会员等级）",
+      "petshop-ui/petshop-ui.html（商城页商品与分类）",
+      "petshop-tech-design/petshop-tech-design.html（不承载数值，只引用规则）"
+    ],
+    "rule": "价格变更必须同时改本文件与 02_seed.sql；两份文档中的展示数值一律从本文件取值，不得就地编造。"
+  },
+
+  "services": [
+    { "id": 101, "name": "基础洗护套餐", "category": "WASH",    "durationSlots": 1, "capacity": 3, "status": "ENABLED" },
+    { "id": 102, "name": "精致美容",     "category": "GROOM",   "durationSlots": 2, "capacity": 2, "status": "ENABLED" },
+    { "id": 103, "name": "药浴 SPA",     "category": "SPA",     "durationSlots": 2, "capacity": 3, "status": "ENABLED" },
+    { "id": 104, "name": "疫苗接种",     "category": "VACCINE", "durationSlots": 1, "capacity": 3, "status": "ENABLED" },
+    { "id": 105, "name": "体内外驱虫",   "category": "WORM",    "durationSlots": 1, "capacity": 3, "status": "ENABLED" }
+  ],
+
+  "specs": [
+    { "id": 11, "name": "猫·短毛",       "petType": "CAT", "size": null,     "hair": "SHORT"  },
+    { "id": 12, "name": "猫·中长毛",     "petType": "CAT", "size": null,     "hair": "MEDIUM" },
+    { "id": 13, "name": "猫·长毛",       "petType": "CAT", "size": null,     "hair": "LONG"   },
+    { "id": 14, "name": "狗·小型·短毛",  "petType": "DOG", "size": "SMALL",  "hair": "SHORT"  },
+    { "id": 15, "name": "狗·小型·长毛",  "petType": "DOG", "size": "SMALL",  "hair": "LONG"   },
+    { "id": 16, "name": "狗·中型·短毛",  "petType": "DOG", "size": "MEDIUM", "hair": "SHORT"  },
+    { "id": 17, "name": "狗·中型·长毛",  "petType": "DOG", "size": "MEDIUM", "hair": "LONG"   },
+    { "id": 18, "name": "狗·大型·短毛",  "petType": "DOG", "size": "LARGE",  "hair": "SHORT"  }
+  ],
+
+  "priceMatrix": {
+    "note": "行 = spec_id，列 = service_id。缺项表示该规格不提供该服务。",
+    "101": { "11": 120.00, "12": 150.00, "13": 180.00, "14": 130.00, "15": 150.00, "16": 160.00, "17": 180.00, "18": 200.00 },
+    "102": { "11": 260.00, "12": 320.00, "13": 380.00, "14": 280.00, "15": 340.00, "16": 360.00, "17": 420.00, "18": 480.00 },
+    "103": { "11": 200.00, "12": 240.00, "13": 280.00, "14": 220.00, "15": 260.00, "16": 280.00, "17": 320.00, "18": 360.00 },
+    "104": { "11": 60.00,  "12": 60.00,  "13": 60.00,  "14": 80.00,  "15": 80.00,  "16": 80.00,  "17": 80.00,  "18": 80.00  },
+    "105": { "11": 40.00,  "12": 40.00,  "13": 40.00,  "14": 50.00,  "15": 50.00,  "16": 50.00,  "17": 50.00,  "18": 50.00  }
+  },
+
+  "cardTypes": [
+    { "id": 201, "name": "猫洗护次卡·10 次", "serviceIds": [101], "specIds": [11, 12, 13],          "times": 10, "price": 980.00,  "validMode": "MONTHS", "validMonths": 12, "status": "ENABLED" },
+    { "id": 202, "name": "狗美容次卡·10 次", "serviceIds": [102], "specIds": [14, 15, 16, 17, 18], "times": 10, "price": 2000.00, "validMode": "MONTHS", "validMonths": 12, "status": "ENABLED" }
+  ],
+
+  "rechargeTiers": {
+    "note": "discountRate = amount ÷ (amount + gift)，用于文档展示的「实际折扣」。",
+    "tiers": [
+      { "id": 1, "amount": 300.00,  "gift": 30.00,  "enabled": true },
+      { "id": 2, "amount": 500.00,  "gift": 80.00,  "enabled": true },
+      { "id": 3, "amount": 1000.00, "gift": 200.00, "enabled": true }
+    ],
+    "custom": { "enabled": true, "min": 1, "max": 2000, "gift": 0, "note": "自定义金额不享赠送" }
+  },
+
+  "memberLevels": {
+    "note": "等级数量与门槛完全由门店后台配置，此处为演示门店的实际配置。",
+    "levels": [
+      { "id": 1, "level": 1, "name": "普通会员", "threshold": 0.00,    "generalDiscount": 1.00, "serviceDiscount": {},                            "benefits": [] },
+      { "id": 2, "level": 2, "name": "银爪会员", "threshold": 1000.00, "generalDiscount": 0.95, "serviceDiscount": { "GROOM": 0.92 },             "benefits": ["birthday_gift"] },
+      { "id": 3, "level": 3, "name": "金爪会员", "threshold": 3000.00, "generalDiscount": 0.88, "serviceDiscount": { "GROOM": 0.80, "WASH": 0.85 }, "benefits": ["birthday_gift", "free_deworming"] }
+    ]
+  },
+
+  "goods": {
+    "note": "一期上架商品。price_from 仅用于列表页「¥xx 起」，实际成交价取 sku.price。分类是自由文本（非枚举），UI 与小程序一律从服务端数据归并，前端不得自拟分类键。",
+    "items": [
+      { "id": 301, "name": "宠物香氛沐浴露 500ml", "category": "洗护", "description": "温和低敏，留香 7 天",   "priceFrom": 89.00,
+        "skus": [ { "id": 3011, "name": "燕麦香型 500ml",   "price": 89.00, "stock": 100 },
+                  { "id": 3012, "name": "洋甘菊香型 500ml", "price": 89.00, "stock": 60  } ] },
+      { "id": 302, "name": "冻干鸡肉粒 100g",       "category": "零食", "description": "纯鸡肉冻干，零添加，训练奖励首选", "priceFrom": 39.00,
+        "skus": [ { "id": 3021, "name": "原味 100g",     "price": 39.00, "stock": 200 },
+                  { "id": 3022, "name": "三文鱼味 100g", "price": 45.00, "stock": 150 } ] },
+      { "id": 303, "name": "豆腐猫砂 6L",           "category": "用品", "description": "可冲厕所，低粉尘，结团快",     "priceFrom": 45.00,
+        "skus": [ { "id": 3031, "name": "原味 6L", "price": 45.00, "stock": 120 } ] },
+      { "id": 304, "name": "宠物洁耳液 120ml",      "category": "护理", "description": "温和清洁耳道，缓解异味",       "priceFrom": 56.00,
+        "skus": [ { "id": 3041, "name": "通用型 120ml", "price": 56.00, "stock": 80 } ] },
+      { "id": 305, "name": "狗狗磨牙棒 3 支装",     "category": "零食", "description": "耐咬洁齿，牛皮与鸡肉双拼",     "priceFrom": 32.00,
+        "skus": [ { "id": 3051, "name": "中型犬 3 支装", "price": 32.00, "stock": 90 } ] },
+      { "id": 306, "name": "宠物益生菌 60 粒",      "category": "保健", "description": "调理肠胃，缓解软便",           "priceFrom": 128.00,
+        "skus": [ { "id": 3061, "name": "通用款 60 粒", "price": 128.00, "stock": 40 } ] }
+    ]
+  },
+
+  "refundPolicy": {
+    "channel": "BALANCE_ONLY",
+    "note": "退款一律退入会员可用余额，即时到账；不提供退微信 / 退现金出口，余额亦不支持提现。赠送金一并退回余额，不折现。",
+    "onlineSources": [
+      { "bizType": "CARD",   "enabled": true,  "rule": "未使用（remain_times = total_times）且无预扣的次卡，按购卡实付 paid_amount 整卡退回余额" },
+      { "bizType": "GOODS",  "enabled": true,  "rule": "已支付且未核销（status = PAID）的商品订单，整单退款；按订单落库时的本金/赠送金快照还原构成，并回补库存。已核销订单不给退" },
+      { "bizType": "MANUAL", "enabled": true,  "rule": "店长人工退款，直接生效并留痕" },
+      { "bizType": "APPOINT","enabled": false, "rule": "预约担保仅需解冻，无资金需退" },
+      { "bizType": "SETTLE", "enabled": false, "rule": "结算链路目前只有扣款方向，无微信渠道分支" }
+    ],
+    "states": ["APPLYING", "REFUNDED", "REJECTED", "CANCELLED"],
+    "noIntermediateState": true,
+    "notify": {
+      "note": "审核前提醒店长，两条通道并行。推送失败一律静默降级为仅角标，不得影响已提交的退款申请。",
+      "channels": [
+        { "key": "BADGE", "rule": "后台角标：GET /admin/refunds/pending-count，前端 30s 轮询" },
+        { "key": "WX_SUBSCRIBE", "rule": "微信一次性订阅消息，配额制（wx_subscribe_quota）；未配置 appid/secret/模板 ID/店长 openid 时自动跳过" }
+      ]
+    }
+  },
+
+  "demoScript": {
+    "note": "文档原型页使用的演示数值，保持与上述数据集自洽。",
+    "member": { "name": "李女士", "pet": "咪咪", "petSpec": "猫·长毛", "balance": 456.20, "cumRecharge": 1000.00, "cumGift": 200.00, "totalPaid": 1460.00, "level": "银爪会员", "nextLevel": "金爪会员", "nextLevelGap": 1540.00, "nextLevelPercent": 49 },
+    "booking": { "service": "基础洗护套餐", "spec": "猫·长毛", "price": 180.00, "levelDiscount": 0.88, "payable": 158.40 }
+  }
+}

@@ -1,0 +1,139 @@
+/* ===== 三主题变量：页面根节点挂 theme-{id} 类切换 ===== */
+page {
+  font-size: 28rpx;
+  color: #2B2118;
+  background: #F7F4F0;
+  font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+}
+
+/* 标准模式：暖赭、专业简洁 */
+.theme-standard {
+  --bg: #F7F4F0;
+  --card: #FFFFFF;
+  --card-muted: #FAF7F4;
+  --ink: #2B2118;
+  --muted: #776A5E;
+  --brand: #B8551D;
+  --brand-soft: #F9EFE7;
+  --brand-text: #7E3710;
+  --line: #E3D9CE;
+  --ok: #52C41A;
+  --warn: #FAAD14;
+  --danger: #FF4D4F;
+  --radius: 20rpx;
+  --radius-sm: 12rpx;
+}
+
+/* 喵喵主题：奶油粉 */
+.theme-meow {
+  --bg: #FFF6F8;
+  --card: #FFFFFF;
+  --card-muted: #FFF0F4;
+  --ink: #4A2C35;
+  --muted: #A37E8A;
+  --brand: #E8638C;
+  --brand-soft: #FDE8EF;
+  --brand-text: #C2426B;
+  --line: #F5DCE4;
+  --ok: #52C41A;
+  --warn: #FAAD14;
+  --danger: #FF4D4F;
+  --radius: 28rpx;
+  --radius-sm: 16rpx;
+}
+
+/* 汪汪主题：活力橙蓝 */
+.theme-woof {
+  --bg: #F2F7FC;
+  --card: #FFFFFF;
+  --card-muted: #E9F2FA;
+  --ink: #1F3346;
+  --muted: #6D8299;
+  --brand: #2E7CD6;
+  --brand-soft: #E1EEFB;
+  --brand-text: #1D5CA8;
+  --line: #D6E4F0;
+  --ok: #52C41A;
+  --warn: #FAAD14;
+  --danger: #FF4D4F;
+  --radius: 28rpx;
+  --radius-sm: 16rpx;
+}
+
+/* ===== 通用原子样式 ===== */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 24rpx 24rpx 48rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(43, 33, 24, 0.04);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 20rpx;
+}
+
+.muted { color: var(--muted); font-size: 24rpx; }
+
+.btn-primary {
+  background: var(--brand);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm);
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 88rpx;
+  text-align: center;
+  border: none;
+}
+
+.btn-primary::after { border: none; }
+.btn-primary[disabled] { background: var(--line); color: #FFFFFF; }
+
+.btn-ghost {
+  background: var(--brand-soft);
+  color: var(--brand-text);
+  border-radius: var(--radius-sm);
+  font-size: 28rpx;
+  line-height: 76rpx;
+  text-align: center;
+  border: none;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  background: var(--brand-soft);
+  color: var(--brand-text);
+}
+
+.empty {
+  text-align: center;
+  padding: 80rpx 0;
+  color: var(--muted);
+  font-size: 26rpx;
+}
+
+.empty-icon { font-size: 72rpx; display: block; margin-bottom: 16rpx; }
+
+/* 金额 */
+.price { color: var(--brand); font-weight: 700; }
+.price-symbol { font-size: 22rpx; }
+
+/* 列表分割线 */
+.divider { height: 2rpx; background: var(--line); margin: 20rpx 0; }
+
+/* 资金操作进行中：置灰并吞掉点击。真正的防重复在页面逻辑里的 busyId 守卫，
+   这里只是让用户看得出"这一下已经点过了"（对应审查 P3-10）。 */
+.busy { opacity: 0.5; pointer-events: none; }

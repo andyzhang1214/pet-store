@@ -1,0 +1,44 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>小程序使用指引 ②：钱包、次卡与商城</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>钱和卡都在「我的」里自助管理，每一笔都查得到</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 16, marginBottom: 16 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>💰</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 6 }}>充值余额</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>「钱包」里选充值档位（如充 300 送 30），支付成功立即到账；充多少、送多少、花多少，流水页一目了然。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>🎫</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 6 }}>购买与使用次卡</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>次卡显示剩余次数：预约时预扣 1 次，到店核销正式扣，未到店自动回补。每一笔扣次都有记录可查。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>🛍️</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 6 }}>商城与自提</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>商品在线下单支付后生成 8 位自提码，到店出示给店员核销提货；核销后即完成交易。</Text>
+    </Box>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 16 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>💉</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 6 }}>健康档案</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>疫苗、驱虫、美容记录自动累积；临近到期时小程序和门店后台都会提醒，不漏针。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>📋</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 6 }}>订单与记录</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>预约记录、商城订单、消费流水集中查看；核销码丢了随时重新调出，不怕截图找不到。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#4E7A62', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>✅</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF', marginTop: 6 }}>一句话记住</Text>
+      <Text style={{ fontSize: 14.5, color: '#FFFFFF', lineHeight: 1.7, marginTop: 8 }}>顾客端只做三件事：约服务、管钱包、出示码 —— 剩下的核对、记账、留痕都由门店后台自动完成。</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>04 / 08</Text>
+  </Box>
+</Slide>

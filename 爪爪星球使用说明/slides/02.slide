@@ -1,0 +1,51 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>系统全景：三端一体，同一套账</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>顾客在小程序下单与预约，门店在后台作业与结算，后端统一记账</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 16, padding: 24 }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Text style={{ fontSize: 34 }}>📱</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#B8551D' }}>顾客端 · 微信小程序</Text>
+      </Box>
+      <Text style={{ fontSize: 16, color: '#2B241F', lineHeight: 1.7, marginTop: 14 }}>
+        首页 / 预约 / 商城 / 我的 四个主页面，另含宠物档案、钱包、预约记录、健康档案、商品、订单六个子页。
+      </Text>
+      <Text style={{ fontSize: 16, color: '#2B241F', lineHeight: 1.7, marginTop: 10 }}>
+        下单后生成 8 位核销码 / 自提码，到店出示即可。
+      </Text>
+      <Box style={{ marginTop: 'auto', background: '#FFFFFF', borderRadius: 10, padding: '8px 14px' }}>
+        <Text style={{ fontSize: 14, color: '#8A7A6D' }}>技术：TypeScript + 原生小程序框架，分包按需加载</Text>
+      </Box>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 16, padding: 24 }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Text style={{ fontSize: 34 }}>🖥️</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#B8551D' }}>门店后台 · Web</Text>
+      </Box>
+      <Text style={{ fontSize: 16, color: '#2B241F', lineHeight: 1.7, marginTop: 14 }}>
+        14 个功能页：核销台、预约管理、到店结算、订单、退款审核、会员、商品库存、服务价目、卡与充值、会员等级、门店规则、账号、审计等。
+      </Text>
+      <Box style={{ marginTop: 'auto', background: '#FFFFFF', borderRadius: 10, padding: '8px 14px' }}>
+        <Text style={{ fontSize: 14, color: '#8A7A6D' }}>技术：零依赖原生 JS，主题可切换，手机/平板自适应</Text>
+      </Box>
+    </Box>
+    <Box style={{ flex: 1, background: '#2B241F', borderRadius: 16, padding: 24 }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Text style={{ fontSize: 34 }}>⚙️</Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#F5EBDD' }}>后端服务 · Java</Text>
+      </Box>
+      <Text style={{ fontSize: 16, color: '#F5EBDD', lineHeight: 1.7, marginTop: 14 }}>
+        Spring Boot 多模块：会员、预约、商城、钱包、结算、公共组件、管理入口。余额、次卡、健康档案、审计由服务端统一记账。
+      </Text>
+      <Box style={{ marginTop: 'auto', background: 'rgba(245,235,221,0.14)', borderRadius: 10, padding: '8px 14px' }}>
+        <Text style={{ fontSize: 14, color: '#F5EBDD' }}>技术：MyBatis-Plus · CAS 状态机 · 115 项自动化测试</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>02 / 10</Text>
+  </Box>
+</Slide>

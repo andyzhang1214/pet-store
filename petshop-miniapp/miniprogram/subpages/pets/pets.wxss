@@ -1,0 +1,46 @@
+.pet-card { display: flex; align-items: center; padding: 28rpx; }
+.pet-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+}
+.pet-info { flex: 1; margin-left: 24rpx; }
+.pet-name { font-size: 30rpx; font-weight: 600; color: var(--ink); }
+.pet-sub { font-size: 24rpx; color: var(--muted); margin-top: 4rpx; }
+.pet-actions { display: flex; gap: 16rpx; }
+.mini-btn {
+  font-size: 24rpx;
+  color: var(--brand-text);
+  background: var(--brand-soft);
+  border-radius: 999rpx;
+  padding: 10rpx 24rpx;
+}
+.mini-btn.danger { color: var(--danger); }
+
+/* 弹层 */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-end;
+  z-index: 10;
+}
+.sheet {
+  width: 100%;
+  background: var(--card);
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 40rpx 32rpx calc(40rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+.sheet-title { font-size: 32rpx; font-weight: 700; color: var(--ink); text-align: center; margin-bottom: 16rpx; }
+.form-row { display: flex; align-items: center; padding: 24rpx 0; border-bottom: 2rpx solid var(--line); }
+.form-label { width: 160rpx; font-size: 26rpx; color: var(--muted); }
+.form-input { flex: 1; font-size: 28rpx; color: var(--ink); }
+.form-picker { font-size: 28rpx; color: var(--ink); }
+.sheet .btn-primary { margin-top: 32rpx; }

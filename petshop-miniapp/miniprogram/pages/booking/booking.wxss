@@ -1,0 +1,171 @@
+/* 门店信息卡 */
+.store-card { padding: 24rpx 28rpx; }
+.store-name { font-size: 32rpx; font-weight: 700; color: var(--ink); margin-bottom: 12rpx; }
+.store-line { font-size: 24rpx; color: var(--muted); line-height: 1.9; }
+
+/* 步骤条 */
+.steps {
+  display: flex;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24rpx 12rpx;
+  margin-bottom: 24rpx;
+}
+.step { flex: 1; text-align: center; position: relative; opacity: 0.45; }
+.step.active, .step.done { opacity: 1; }
+.step-no {
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--line);
+  color: var(--muted);
+  font-size: 24rpx;
+  font-weight: 600;
+}
+.step.active .step-no, .step.done .step-no { background: var(--brand); color: #fff; }
+.step-label { font-size: 22rpx; margin-top: 8rpx; color: var(--ink); }
+
+.section-title { font-size: 30rpx; font-weight: 600; color: var(--ink); margin: 8rpx 4rpx 20rpx; }
+
+/* 服务宫格 */
+.svc-grid { display: flex; flex-wrap: wrap; gap: 20rpx; }
+.svc-item {
+  width: calc(33.33% - 14rpx);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 30rpx 16rpx;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 4rpx 16rpx rgba(43, 33, 24, 0.04);
+}
+.svc-icon { font-size: 52rpx; }
+.svc-name { font-size: 26rpx; font-weight: 600; color: var(--ink); margin-top: 12rpx; }
+.svc-cat { font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+
+/* 宠物列表 */
+.pet-item { display: flex; align-items: center; padding: 28rpx; }
+.pet-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+}
+.pet-info { flex: 1; margin-left: 24rpx; }
+.pet-name { font-size: 30rpx; font-weight: 600; color: var(--ink); }
+.pet-sub { font-size: 24rpx; color: var(--muted); margin-top: 4rpx; }
+.pet-arrow { color: var(--muted); font-size: 40rpx; }
+.add-pet-btn { margin-bottom: 24rpx; }
+
+/* 表单 */
+.form-row { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 2rpx solid var(--line); }
+.form-row:last-of-type { border-bottom: none; }
+.form-label { width: 160rpx; font-size: 26rpx; color: var(--muted); }
+.form-input { flex: 1; font-size: 28rpx; color: var(--ink); }
+.form-picker { font-size: 28rpx; color: var(--ink); }
+.card .btn-primary { margin-top: 24rpx; }
+
+/* 日期横条 */
+.date-strip {
+  display: flex;
+  overflow-x: auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16rpx;
+  margin-bottom: 24rpx;
+  white-space: nowrap;
+}
+.date-cell {
+  display: inline-block;
+  min-width: 128rpx;
+  text-align: center;
+  padding: 16rpx 12rpx;
+  border-radius: var(--radius-sm);
+  margin-right: 12rpx;
+}
+.date-cell.on { background: var(--brand); }
+.date-cell.on .date-label, .date-cell.on .date-weekday { color: #fff; }
+.date-label { font-size: 26rpx; font-weight: 600; color: var(--ink); }
+.date-weekday { font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+
+/* 时段宫格 */
+.slot-grid { display: flex; flex-wrap: wrap; gap: 20rpx; }
+.slot-cell {
+  width: calc(25% - 15rpx);
+  background: var(--card);
+  border-radius: var(--radius-sm);
+  padding: 22rpx 8rpx;
+  text-align: center;
+  box-sizing: border-box;
+  border: 4rpx solid transparent;
+}
+.slot-cell.on { border-color: var(--brand); background: var(--brand-soft); }
+.slot-cell.off { opacity: 0.4; }
+.slot-time { font-size: 28rpx; font-weight: 600; color: var(--ink); }
+.slot-remain { font-size: 22rpx; color: var(--muted); margin-top: 6rpx; }
+.slot-cell.on .slot-remain { color: var(--brand-text); }
+
+/* 确认页 */
+.confirm-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: var(--ink);
+  padding: 16rpx 0;
+}
+
+/* 担保方式 */
+.guarantee-list { display: flex; flex-direction: column; gap: 20rpx; margin-bottom: 24rpx; }
+.guarantee-item {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28rpx;
+  border: 4rpx solid transparent;
+}
+.guarantee-item.on { border-color: var(--brand); background: var(--brand-soft); }
+.guarantee-item.off { opacity: 0.5; }
+.g-title { font-size: 30rpx; font-weight: 600; color: var(--ink); }
+.g-desc { font-size: 24rpx; color: var(--muted); margin-top: 8rpx; }
+.g-desc.warn { color: var(--danger); }
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 24rpx;
+  border-radius: var(--radius-sm);
+  font-size: 28rpx;
+  color: var(--ink);
+  margin-bottom: 16rpx;
+  border: 4rpx solid transparent;
+}
+.card-item.on { border-color: var(--brand); background: var(--brand-soft); }
+
+/* 成功页 */
+.success-card { text-align: center; padding: 56rpx 40rpx; }
+.success-icon { font-size: 96rpx; }
+.success-title { font-size: 40rpx; font-weight: 700; color: var(--ink); margin-top: 16rpx; }
+.success-desc { font-size: 28rpx; color: var(--muted); margin-top: 12rpx; }
+.success-time { font-size: 32rpx; font-weight: 600; color: var(--ink); margin-top: 8rpx; }
+.code-box {
+  margin: 40rpx auto 0;
+  background: var(--card-muted);
+  border-radius: var(--radius-sm);
+  padding: 32rpx;
+}
+.code-label { font-size: 24rpx; color: var(--muted); }
+.code-value {
+  font-size: 64rpx;
+  font-weight: 700;
+  letter-spacing: 12rpx;
+  color: var(--brand-text);
+  margin-top: 12rpx;
+  font-family: 'Menlo', monospace;
+}
+.notice { font-size: 24rpx; color: var(--muted); margin-top: 24rpx; }
+.success-actions { display: flex; gap: 24rpx; margin-top: 40rpx; }
+.success-actions .btn-ghost, .success-actions .btn-primary { flex: 1; }

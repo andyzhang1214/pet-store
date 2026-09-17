@@ -1,0 +1,70 @@
+<wxs src="../../utils/fmt.wxs" module="fmt" />
+
+<view class="page theme-{{theme}}">
+  <view class="balance-card">
+    <view class="balance-label">账户余额</view>
+    <view class="balance-num">¥{{walletInfo ? fmt.money(walletInfo.balance) : '--'}}</view>
+    <view class="balance-sub" wx:if="{{walletInfo}}">
+      可用 ¥{{fmt.money(walletInfo.available)}} · 冻结 ¥{{fmt.money(walletInfo.frozenAmount)}} · 可退本金 ¥{{fmt.money(walletInfo.refundablePrincipal)}}
+    </view>
+    <view class="balance-btn" bindtap="goRecharge">充值</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">我的次卡</view>
+    <view class="card-item" wx:for="{{cards}}" wx:key="id">
+      <view class="card-item-head">
+        <view class="card-item-name">{{item.name}}</view>
+        <view class="status {{item.statusCls}}">{{item.statusText}}</view>
+      </view>
+      <view class="card-item-line">剩余 {{item.timesText}} 次 · 有效期至 {{item.validUntil}}</view>
+      <view class="card-item-line muted">卡号 {{item.cardNo}}</view>
+      <view class="card-item-actions" wx:if="{{item.refundable}}">
+        <view class="mini-btn {{busyId === item.id ? 'busy' : ''}}" data-id="{{item.id}}" bindtap="applyRefund">申请退款 ¥{{fmt.money(item.paidAmount)}}</view>
+      </view>
+    </view>
+    <view wx:if="{{cards.length === 0}}" class="empty">
+      <text class="empty-icon">🎫</text>
+      暂无次卡
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">退款记录</view>
+    <view class="card-item" wx:for="{{refunds}}" wx:key="id">
+      <view class="card-item-head">
+        <view class="card-item-name">{{item.bizText}} ¥{{item.amtText}}</view>
+        <view class="status {{item.statusCls}}">{{item.statusText}}</view>
+      </view>
+      <view class="card-item-line muted">{{item.timeText}} · 单号 {{item.refundNo}}</view>
+      <view class="card-item-line" wx:if="{{item.auditRemark}}">审核意见：{{item.auditRemark}}</view>
+      <view class="card-item-actions" wx:if="{{item.status === 'APPLYING'}}">
+        <view class="mini-btn plain {{busyId === item.id ? 'busy' : ''}}" data-id="{{item.id}}" bindtap="cancelRefund">撤回申请</view>
+      </view>
+    </view>
+    <view wx:if="{{refunds.length === 0}}" class="empty">
+      <text class="empty-icon">↩️</text>
+      暂无退款记录
+    </view>
+    <view class="refund-tip">退款只退入账户余额，不支持提现到微信；提交后由门店审核，通过即到账。</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">账单明细</view>
+    <view class="ledger-item" wx:for="{{records}}" wx:key="id">
+      <view class="ledger-left">
+        <view class="ledger-biz">{{item.bizText}}</view>
+        <view class="ledger-time">{{item.createdAt}}</view>
+      </view>
+      <view class="ledger-right">
+        <view class="ledger-amt {{item.sign === '-' ? 'out' : ''}}" wx:if="{{!item.frozenOp}}">{{item.sign}}¥{{item.amtText}}</view>
+        <view class="ledger-amt muted" wx:else>冻结额 ¥{{item.frozenText}}</view>
+        <view class="ledger-after">余额 ¥{{fmt.money(item.balanceAfter)}}</view>
+      </view>
+    </view>
+    <view wx:if="{{records.length === 0 && !loading}}" class="empty">
+      <text class="empty-icon">🧾</text>
+      暂无账单
+    </view>
+  </view>
+</view>

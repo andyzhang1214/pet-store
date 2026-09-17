@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宠物店小程序 · UI 设计稿（三主题）</title>
+<style>
+/* ============ 设计稿页面骨架 ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro SC', 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  background: #F4EFE8;
+  color: #2B2118;
+  line-height: 1.6;
+}
+.wrap { max-width: 1440px; margin: 0 auto; padding: 48px 32px 72px; }
+
+.doc-head { max-width: 760px; margin-bottom: 36px; }
+.doc-head__eyebrow {
+  font-size: 13px; letter-spacing: .22em; font-weight: 600;
+  color: #B8551D; text-transform: uppercase; margin-bottom: 10px;
+}
+.doc-head h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+.doc-head p { margin-top: 14px; font-size: 15px; color: #5C4F43; }
+.doc-head p b { color: #2B2118; }
+
+/* 页面切换 tab */
+.page-tabs {
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 40px;
+  padding: 8px; background: #FFFFFF; border: 1px solid #E3D9CE;
+  border-radius: 16px; width: fit-content; max-width: 100%;
+  box-shadow: 0 1px 2px rgba(43,33,24,.04);
+}
+.page-tab {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  font: inherit; font-size: 14.5px; font-weight: 500; color: #5C4F43;
+  padding: 9px 20px; border-radius: 10px; transition: background .15s, color .15s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.page-tab svg { width: 16px; height: 16px; }
+.page-tab:hover { background: #F4EFE8; color: #2B2118; }
+.page-tab.is-active { background: #2B2118; color: #FFF; font-weight: 600; }
+.page-tab .badge {
+  font-size: 11px; font-weight: 600; background: #F1DFCF; color: #7E3710;
+  padding: 1px 7px; border-radius: 99px;
+}
+.page-tab.is-active .badge { background: rgba(255,255,255,.18); color: #fff; }
+
+/* 手机并排区 */
+.phones {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 40px; align-items: start; justify-items: center;
+}
+
+/* ============ 手机外框 ============ */
+.phone { width: 348px; }
+.phone__shell {
+  background: #1D1712; border-radius: 44px; padding: 10px;
+  box-shadow: 0 24px 48px -18px rgba(43,33,24,.35), 0 4px 12px rgba(43,33,24,.12);
+}
+.phone__screen {
+  background: var(--c-bg); border-radius: 35px; overflow: hidden;
+  height: 700px; display: flex; flex-direction: column; position: relative;
+}
+.phone__meta { text-align: center; margin-top: 18px; }
+.phone__meta h3 { font-size: 16px; font-weight: 700; }
+.phone__meta h3 em {
+  font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: .12em;
+  margin-left: 8px; padding: 2px 8px; border-radius: 99px; vertical-align: 2px;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+}
+.phone__meta p { font-size: 12.5px; color: #776A5E; margin-top: 3px; }
+
+/* ============ 三套主题令牌 ============ */
+/* 标准模式：专业暖赭 */
+.phone[data-theme="standard"] {
+  --c-primary: #B8551D;
+  --c-btn: #B8551D;
+  --c-primary-deep: #7E3710;
+  --c-primary-soft: #F9EFE7;
+  --c-primary-light: #D97757;
+  --c-bg: #FAF7F4;
+  --c-card: #FFFFFF;
+  --c-ink: #2B2118;
+  --c-ink-2: #4E4238;
+  --c-ink-3: #776A5E;
+  --c-line: #E3D9CE;
+  --c-accent: #D97757;
+  --c-sale: #C0392B;
+  --c-sale-soft: #FBEDEA;
+  --c-success: #4A7C59;
+  --c-success-soft: #EAF2EC;
+  --r-lg: 14px; --r-md: 10px; --r-sm: 8px;
+}
+/* 喵喵主题：奶油蜜桃 */
+.phone[data-theme="cat"] {
+  --c-primary: #E8849B;
+  --c-btn: #D9587A;
+  --c-primary-deep: #B84A65;
+  --c-primary-soft: #FDEEF2;
+  --c-primary-light: #F2A7B8;
+  --c-bg: #FFF8F6;
+  --c-card: #FFFFFF;
+  --c-ink: #4A2C33;
+  --c-ink-2: #6E454E;
+  --c-ink-3: #A7828A;
+  --c-line: #F4DDE1;
+  --c-accent: #F4A259;
+  --c-sale: #D9455F;
+  --c-sale-soft: #FDE9ED;
+  --c-success: #4E9468;
+  --c-success-soft: #E9F4ED;
+  --r-lg: 24px; --r-md: 18px; --r-sm: 14px;
+}
+/* 汪汪主题：天蓝明黄 */
+.phone[data-theme="dog"] {
+  --c-primary: #4A9FE8;
+  --c-btn: #3380CE;
+  --c-primary-deep: #24619E;
+  --c-primary-soft: #E8F2FC;
+  --c-primary-light: #7BC0F2;
+  --c-bg: #F2F8FD;
+  --c-card: #FFFFFF;
+  --c-ink: #1F3A52;
+  --c-ink-2: #3C5871;
+  --c-ink-3: #71889E;
+  --c-line: #D8E7F4;
+  --c-accent: #F7B32B;
+  --c-sale: #E86A33;
+  --c-sale-soft: #FDF0E8;
+  --c-success: #3E8E5A;
+  --c-success-soft: #E9F4EE;
+  --r-lg: 18px; --r-md: 14px; --r-sm: 10px;
+}
+
+/* ============ 手机内通用组件 ============ */
+.statusbar {
+  height: 34px; flex: none; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; font-size: 12.5px; font-weight: 600; color: var(--c-ink);
+  position: relative; z-index: 3;
+}
+.statusbar .sig { display: flex; gap: 4px; align-items: center; font-size: 10px; letter-spacing: .04em; }
+.statusbar .sig i { width: 3px; background: currentColor; border-radius: 1px; display: inline-block; }
+.statusbar .sig i:nth-child(1){height:4px}.statusbar .sig i:nth-child(2){height:6px}
+.statusbar .sig i:nth-child(3){height:8px}.statusbar .sig i:nth-child(4){height:10px}
+.statusbar .batt { width: 20px; height: 10px; border: 1.4px solid currentColor; border-radius: 3px; position: relative; opacity: .85; }
+.statusbar .batt::before { content: ""; position: absolute; inset: 1.6px; right: 30%; background: currentColor; border-radius: 1px; }
+.statusbar .batt::after { content: ""; position: absolute; right: -3.6px; top: 2.6px; width: 2.2px; height: 4px; background: currentColor; border-radius: 0 1px 1px 0; }
+
+.appbar {
+  flex: none; position: relative; padding: 4px 20px 12px;
+  background: linear-gradient(180deg, var(--c-primary-soft), transparent);
+  display: flex; align-items: center; justify-content: center;
+}
+.appbar__title { font-size: 16.5px; font-weight: 700; color: var(--c-ink); letter-spacing: .01em; }
+
+/* 猫耳装饰 */
+.phone[data-theme="cat"] .appbar::before,
+.phone[data-theme="cat"] .appbar::after {
+  content: ""; position: absolute; top: 2px; width: 26px; height: 22px;
+  background: var(--c-primary); z-index: 2;
+}
+.phone[data-theme="cat"] .appbar::before {
+  left: 96px;
+  clip-path: polygon(50% 0, 100% 92%, 0 100%);
+  transform: rotate(-14deg);
+}
+.phone[data-theme="cat"] .appbar::after {
+  right: 96px;
+  clip-path: polygon(0 0, 50% 0, 100% 92%, 0 100%);
+  clip-path: polygon(50% 0, 100% 100%, 0 92%);
+  transform: rotate(14deg);
+}
+/* 汪汪速度线装饰 */
+.phone[data-theme="dog"] .appbar::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: repeating-linear-gradient(90deg, var(--c-accent) 0 14px, transparent 14px 26px);
+  opacity: .55; border-radius: 2px;
+}
+
+.screen__body {
+  flex: 1; overflow-y: auto; padding: 4px 16px 18px;
+  scrollbar-width: none;
+}
+.screen__body::-webkit-scrollbar { display: none; }
+
+/* 底部 tabbar */
+.tabbar {
+  flex: none; background: var(--c-card); border-top: 1px solid var(--c-line);
+  display: grid; grid-template-columns: repeat(5, 1fr); align-items: end;
+  padding: 8px 6px 20px; position: relative;
+}
+.tab {
+  appearance: none; background: none; border: 0; font: inherit; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: var(--c-ink-3); font-size: 10px; padding-top: 6px;
+}
+.tab svg { width: 22px; height: 22px; }
+.tab.is-active { color: var(--c-primary-deep); font-weight: 600; }
+.tab--center .tab__btn {
+  width: 46px; height: 46px; margin-top: -22px; border-radius: 50%;
+  background: var(--c-btn); color: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 14px -4px color-mix(in srgb, var(--c-btn) 55%, transparent);
+  border: 3.5px solid var(--c-card);
+}
+.tab--center .tab__btn svg { width: 22px; height: 22px; }
+.tab--center.is-active .tab__btn { transform: scale(1.06); }
+.tab--center { font-weight: 600; }
+
+/* 卡片与分区 */
+.card {
+  background: var(--c-card); border: 1px solid var(--c-line);
+  border-radius: var(--r-lg); padding: 14px; margin-bottom: 12px;
+}
+.sec-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin: 16px 2px 10px;
+}
+.sec-head h4 { font-size: 15.5px; font-weight: 700; color: var(--c-ink); display: flex; align-items: center; gap: 7px; }
+.sec-head h4 svg { width: 17px; height: 17px; color: var(--c-primary); }
+.sec-head a { font-size: 12px; color: var(--c-ink-3); text-decoration: none; display: inline-flex; align-items: center; gap: 2px; }
+.sec-head a svg { width: 12px; height: 12px; }
+
+/* 按钮 */
+.btn {
+  appearance: none; border: 0; cursor: pointer; font: inherit;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--c-btn); color: #fff; font-weight: 600;
+  border-radius: calc(var(--r-md) + 4px); padding: 10px 18px; font-size: 14px;
+  transition: transform .12s, box-shadow .12s;
+}
+.btn svg { width: 15px; height: 15px; }
+.btn:active { transform: translateY(1.5px); }
+.btn--block { width: 100%; padding: 13px; font-size: 15px; }
+.btn--ghost {
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  border-radius: var(--r-sm);
+}
+.btn--sm { padding: 6px 12px; font-size: 12.5px; border-radius: var(--r-sm); }
+
+/* 标签 */
+.tag {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 99px;
+}
+.tag--sale { background: var(--c-sale-soft); color: var(--c-sale); }
+.tag--vip { background: var(--c-primary-soft); color: var(--c-primary-deep); }
+.tag--ok { background: var(--c-success-soft); color: var(--c-success); }
+.tag svg { width: 11px; height: 11px; }
+
+/* 价格 */
+.price { color: var(--c-sale); font-weight: 700; font-size: 17px; }
+.price small { font-size: 11px; font-weight: 600; }
+.price--member { color: var(--c-primary-deep); font-size: 12.5px; font-weight: 600; }
+
+/* chips */
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex: none; appearance: none; font: inherit; cursor: pointer;
+  border: 1.5px solid var(--c-line); background: var(--c-card); color: var(--c-ink-2);
+  padding: 7px 14px; border-radius: 99px; font-size: 12.5px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.chip svg { width: 13px; height: 13px; }
+.chip.is-on { background: var(--c-primary-soft); border-color: var(--c-primary); color: var(--c-primary-deep); font-weight: 600; }
+
+/* ============ 首页 · 简洁大气版 ============ */
+.greet { padding: 10px 4px 16px; }
+.greet h5 { font-size: 21px; font-weight: 800; color: var(--c-ink); letter-spacing: .01em; line-height: 1.3; }
+.greet p { font-size: 12px; color: var(--c-ink-3); margin-top: 3px; }
+.hero--slim { height: 96px; margin-bottom: 14px; }
+.hero--slim .hero__txt { align-items: center; }
+.hero--slim .hero__txt h5 { font-size: 14.5px; }
+.hero--slim .hero__txt p { display: none; }
+
+.feat { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.feat--main { grid-template-columns: 1fr; }
+.fcard {
+  appearance: none; border: 0; font: inherit; cursor: pointer; text-align: left;
+  background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-lg);
+  padding: 13px 14px; display: flex; align-items: center; gap: 11px;
+  transition: transform .15s, box-shadow .15s;
+}
+.fcard:active { transform: scale(.97); }
+.fcard__ic {
+  width: 44px; height: 44px; border-radius: var(--r-md); flex: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.fcard__ic svg { width: 21px; height: 21px; }
+.fcard__t { flex: 1; min-width: 0; }
+.fcard__t b { font-size: 14px; color: var(--c-ink); display: block; font-weight: 700; }
+.fcard__t span { font-size: 10.5px; color: var(--c-ink-3); display: block; margin-top: 1px; }
+.fcard__arrow { width: 16px; height: 16px; color: var(--c-ink-3); flex: none; }
+.fcard--hero {
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, var(--c-primary), var(--c-primary-deep));
+  border: 0; color: #fff; padding: 16px;
+}
+.fcard--hero .fcard__t b { font-size: 16.5px; color: #fff; }
+.fcard--hero .fcard__t span { color: rgba(255,255,255,.82); font-size: 11.5px; }
+.fcard--hero .fcard__ic { width: 48px; height: 48px; background: rgba(255,255,255,.2); color: #fff; }
+.fcard--hero .fcard__ic svg { width: 24px; height: 24px; }
+.fcard--hero .fcard__arrow { color: rgba(255,255,255,.75); }
+.fcard--hero .fcard__cta {
+  flex: none; background: #fff; color: var(--c-primary-deep); font-size: 12px; font-weight: 700;
+  padding: 8px 14px; border-radius: 99px;
+}
+.fcard__ic--soft { background: var(--c-primary-soft); color: var(--c-primary-deep); }
+.fcard__ic--warm { background: #FDF3E0; color: #B84A00; }
+.fcard__ic--cool { background: #E8F2FC; color: #24619E; }
+.fcard__ic--green { background: var(--c-success-soft); color: var(--c-success); }
+
+/* ============ 价目表 · 方块瀑布流 ============ */
+.masonry { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+.mcol { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.sq {
+  background: var(--c-card); border: 1px solid var(--c-line); border-radius: var(--r-lg);
+  padding: 13px 13px 12px; position: relative; overflow: hidden; cursor: pointer;
+  transition: transform .15s;
+}
+.sq:active { transform: scale(.96); }
+.sq__top {
+  width: 40px; height: 40px; border-radius: var(--r-md); margin-bottom: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sq__top svg { width: 19px; height: 19px; }
+.sq__deco { position: absolute; right: -22px; top: -22px; width: 74px; height: 74px; border-radius: 50%; opacity: .5; }
+.sq b { font-size: 13px; color: var(--c-ink); display: block; line-height: 1.35; font-weight: 700; position: relative; }
+.sq__sub { font-size: 10px; color: var(--c-ink-3); display: block; margin-top: 2px; line-height: 1.4; position: relative; }
+.sq__ft { display: flex; align-items: baseline; gap: 6px; margin-top: 9px; position: relative; }
+.sq__ft .price { font-size: 16px; }
+.sq__ft .tag { flex: none; }
+.sq__member { font-size: 10px; color: var(--c-primary-deep); background: var(--c-primary-soft); border-radius: 6px; padding: 2px 6px; display: inline-block; margin-top: 7px; position: relative; }
+.sq__top--soft { background: var(--c-primary-soft); color: var(--c-primary-deep); }
+.sq__top--cool { background: #E8F2FC; color: #24619E; }
+.sq__top--warm { background: #FDF3E0; color: #B84A00; }
+.sq__top--green { background: var(--c-success-soft); color: var(--c-success); }
+.sq__deco--soft { background: var(--c-primary-soft); }
+.sq__deco--cool { background: #E8F2FC; }
+.sq__deco--warm { background: #FDF3E0; }
+.sq__deco--green { background: var(--c-success-soft); }
+
+/* ============ 我的页 · 昵称/等级分行 ============ */
+.me-card__name { flex-direction: column; gap: 7px; }
+.me-card__name b { font-size: 17px; }
+.me-card__lvl {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  border-radius: 99px; padding: 4px 12px; font-size: 11.5px; font-weight: 700;
+}
+.me-card__lvl svg { width: 12px; height: 12px; }
+
+/* ============ 到店信息卡（预约页/我的页入口） ============ */
+.store-card { display: flex; gap: 11px; align-items: flex-start; }
+.store-card__ic {
+  width: 38px; height: 38px; border-radius: var(--r-md); flex: none;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.store-card__ic svg { width: 18px; height: 18px; }
+.store-card__t { flex: 1; min-width: 0; }
+.store-card__t b { font-size: 13px; color: var(--c-ink); display: flex; align-items: center; gap: 6px; }
+.store-card__t span { font-size: 10.5px; color: var(--c-ink-3); display: flex; align-items: center; gap: 3px; margin-top: 3px; }
+.store-card__t span svg { width: 10px; height: 10px; }
+.store-card__nav {
+  appearance: none; border: 0; cursor: pointer; font: inherit; flex: none;
+  background: var(--c-primary-soft); color: var(--c-primary-deep); font-size: 11.5px; font-weight: 600;
+  padding: 7px 12px; border-radius: 99px; display: inline-flex; align-items: center; gap: 4px;
+}
+.store-card__nav svg { width: 12px; height: 12px; }
+.store-card__hours {
+  display: flex; gap: 12px; margin-top: 10px; padding-top: 9px; border-top: 1px dashed var(--c-line);
+  font-size: 10.5px; color: var(--c-ink-3);
+}
+.store-card__hours b { color: var(--c-ink-2); font-weight: 600; }
+
+/* 首页 hero */
+.hero {
+  position: relative; border-radius: var(--r-lg); overflow: hidden; height: 150px;
+  margin-bottom: 14px;
+}
+.hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.02) 30%, rgba(0,0,0,.52) 100%);
+}
+.hero__txt {
+  position: absolute; left: 16px; right: 16px; bottom: 12px; color: #fff;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 8px;
+}
+.hero__txt h5 { font-size: 16px; font-weight: 700; letter-spacing: .01em; }
+.hero__txt p { font-size: 11px; opacity: .88; margin-top: 2px; }
+.hero__txt .btn { padding: 7px 14px; font-size: 12px; border-radius: 99px; flex: none; }
+
+/* 服务行 */
+.svc-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--c-line); }
+.svc-row:last-child { border-bottom: 0; }
+.svc-row__ic {
+  width: 44px; height: 44px; border-radius: var(--r-md); flex: none;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.svc-row__ic svg { width: 21px; height: 21px; }
+.svc-row__txt { flex: 1; min-width: 0; }
+.svc-row__txt b { font-size: 13.5px; display: block; color: var(--c-ink); }
+.svc-row__txt span { font-size: 11px; color: var(--c-ink-3); display: flex; gap: 5px; align-items: center; margin-top: 2px; }
+.svc-row__buy { text-align: right; }
+.svc-row__buy .price { font-size: 15px; }
+
+/* 特卖行 */
+.sale-strip {
+  display: flex; gap: 10px; margin-bottom: 2px;
+}
+.sale-card {
+  flex: 1; background: var(--c-card); border: 1px solid var(--c-line);
+  border-radius: var(--r-md); padding: 10px; min-width: 0;
+}
+.sale-card__img {
+  height: 76px; border-radius: var(--r-sm); margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.sale-card__img svg { width: 34px; height: 34px; }
+.sale-card b { font-size: 12px; display: block; color: var(--c-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sale-card .p { margin-top: 3px; display: flex; align-items: baseline; gap: 6px; }
+.countdown {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700; color: var(--c-sale);
+}
+.countdown b {
+  background: var(--c-sale); color: #fff; border-radius: 4px;
+  font-size: 10.5px; padding: 1px 4px; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+
+/* 价目表 */
+.note-bar {
+  display: flex; gap: 8px; align-items: flex-start; font-size: 11.5px; color: var(--c-ink-2);
+  background: var(--c-primary-soft); border-radius: var(--r-md); padding: 10px 12px; margin-top: 6px;
+}
+.note-bar svg { width: 14px; height: 14px; flex: none; color: var(--c-primary-deep); margin-top: 1px; }
+
+/* 预约页 */
+.steps {
+  display: flex; align-items: center; gap: 6px; padding: 4px 2px 12px; font-size: 11px; color: var(--c-ink-3);
+}
+.step { display: flex; align-items: center; gap: 5px; }
+.step i {
+  font-style: normal; width: 17px; height: 17px; border-radius: 50%; flex: none;
+  border: 1.5px solid var(--c-line); color: var(--c-ink-3);
+  font-size: 9.5px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.step.is-on i { background: var(--c-btn); border-color: var(--c-btn); color: #fff; }
+.step.is-on { color: var(--c-primary-deep); font-weight: 600; }
+.steps em { flex: 1; height: 1.5px; background: var(--c-line); }
+.field-label {
+  font-size: 12.5px; font-weight: 700; color: var(--c-ink); margin: 12px 2px 8px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.field-label a { font-size: 11.5px; font-weight: 500; color: var(--c-primary-deep); text-decoration: none; }
+
+.pet-chip {
+  flex: none; width: 66px; padding: 9px 6px; text-align: center;
+  border: 1.5px solid var(--c-line); border-radius: var(--r-md);
+  background: var(--c-card); cursor: pointer; font: inherit;
+}
+.pet-chip .ava {
+  width: 34px; height: 34px; margin: 0 auto 5px; border-radius: 50%;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.pet-chip b { font-size: 11.5px; color: var(--c-ink); display: block; font-weight: 600; }
+.pet-chip span { font-size: 9.5px; color: var(--c-ink-3); }
+.pet-chip.is-on { border-color: var(--c-primary); background: var(--c-primary-soft); }
+.pet-chip--add .ava { background: transparent; border: 1.5px dashed var(--c-line); color: var(--c-ink-3); font-size: 0; position: relative; }
+.pet-chip--add .ava::before, .pet-chip--add .ava::after {
+  content: ""; position: absolute; left: 50%; top: 50%; background: var(--c-ink-3);
+}
+.pet-chip--add .ava::before { width: 12px; height: 2px; transform: translate(-50%,-50%); }
+.pet-chip--add .ava::after { width: 2px; height: 12px; transform: translate(-50%,-50%); }
+
+.spec-list { display: flex; flex-direction: column; gap: 8px; }
+.spec {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+  border: 1.5px solid var(--c-line); border-radius: var(--r-md); background: var(--c-card); cursor: pointer;
+}
+.spec.is-on { border-color: var(--c-primary); background: var(--c-primary-soft); }
+.spec__radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--c-line); flex: none; position: relative; }
+.spec.is-on .spec__radio { border-color: var(--c-btn); }
+.spec.is-on .spec__radio::after { content: ""; position: absolute; inset: 2.6px; border-radius: 50%; background: var(--c-btn); }
+.spec__txt { flex: 1; min-width: 0; }
+.spec__txt b { font-size: 12.5px; color: var(--c-ink); display: block; }
+.spec__txt span { font-size: 10.5px; color: var(--c-ink-3); }
+
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 10px; }
+.day {
+  text-align: center; padding: 7px 0; border-radius: var(--r-sm);
+  background: var(--c-card); border: 1.5px solid var(--c-line); cursor: pointer;
+}
+.day span { font-size: 9.5px; color: var(--c-ink-3); display: block; }
+.day b { font-size: 13px; color: var(--c-ink); font-weight: 600; }
+.day.is-on { background: var(--c-btn); border-color: var(--c-btn); }
+.day.is-on span, .day.is-on b { color: #fff; }
+.day.is-full { opacity: .38; }
+.slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.slot {
+  padding: 8px 4px; text-align: center; border-radius: var(--r-sm);
+  border: 1.5px solid var(--c-line); background: var(--c-card); cursor: pointer; font: inherit;
+  font-size: 12px; color: var(--c-ink-2); font-variant-numeric: tabular-nums;
+}
+.slot small { display: block; font-size: 9px; color: var(--c-ink-3); margin-top: 1px; }
+.slot.is-on { background: var(--c-btn); border-color: var(--c-btn); color: #fff; }
+.slot.is-on small { color: rgba(255,255,255,.75); }
+.slot.is-full { opacity: .35; text-decoration: line-through; }
+
+.submit-bar {
+  position: sticky; bottom: -18px; margin: 14px -16px -18px; padding: 12px 16px 16px;
+  background: var(--c-card); border-top: 1px solid var(--c-line);
+  display: flex; align-items: center; gap: 12px;
+}
+.submit-bar__txt { flex: 1; font-size: 11px; color: var(--c-ink-3); }
+.submit-bar__txt b { font-size: 14px; color: var(--c-sale); display: block; font-weight: 700; }
+.submit-bar .btn { flex: none; padding: 12px 26px; }
+
+/* 商城页 */
+.search {
+  display: flex; align-items: center; gap: 8px; background: var(--c-card);
+  border: 1.5px solid var(--c-line); border-radius: 99px; padding: 9px 14px; margin-bottom: 12px;
+  color: var(--c-ink-3); font-size: 13px;
+}
+.search svg { width: 16px; height: 16px; flex: none; }
+.mall-sale {
+  position: relative; border-radius: var(--r-lg); overflow: hidden; height: 118px; margin: 12px 0 2px;
+}
+.mall-sale img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+.mall-sale__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.05) 70%); }
+.mall-sale__txt { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #fff; }
+.mall-sale__txt .tag { background: var(--c-accent); color: #3A2A08; margin-bottom: 5px; }
+.phone[data-theme="dog"] .mall-sale__txt .tag { color: #24303C; }
+.mall-sale__txt h5 { font-size: 16px; font-weight: 700; }
+.mall-sale__txt .countdown { color: #FFE9C4; margin-top: 3px; }
+.mall-sale__txt .countdown b { background: #fff; color: #B84A00; }
+.goods-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.goods {
+  background: var(--c-card); border: 1px solid var(--c-line);
+  border-radius: var(--r-md); overflow: hidden;
+}
+.goods__img { height: 92px; display: flex; align-items: center; justify-content: center; color: #fff; }
+.goods__img svg { width: 40px; height: 40px; }
+.goods__bd { padding: 9px 10px 10px; }
+.goods__bd b { font-size: 12px; color: var(--c-ink); display: block; line-height: 1.35; }
+.goods__bd span { font-size: 10px; color: var(--c-ink-3); }
+.goods__ft { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.goods__cart {
+  width: 26px; height: 26px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.goods__cart svg { width: 14px; height: 14px; }
+
+/* 我的页 · 头像信息卡 */
+.me-card { position: relative; overflow: hidden; text-align: center; padding: 22px 14px 6px; }
+.me-card__deco { position: absolute; right: -34px; top: -34px; width: 120px; height: 120px; border-radius: 50%; background: var(--c-primary-soft); }
+.me-ava {
+  position: relative; z-index: 1; width: 72px; height: 72px; margin: 0 auto;
+  border-radius: 50%; background: var(--c-primary-soft);
+  border: 3px solid var(--c-card); box-shadow: 0 0 0 2.5px var(--c-primary-light);
+  display: flex; align-items: center; justify-content: center; font-size: 33px;
+}
+.me-ava--sm { width: 52px; height: 52px; font-size: 24px; }
+.me-card__name { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; z-index: 1; }
+.me-card__name b { font-size: 16px; color: var(--c-ink); }
+.me-card__grow { margin: 9px auto 0; max-width: 210px; position: relative; z-index: 1; }
+.me-card__bar { height: 6px; border-radius: 99px; background: var(--c-line); overflow: hidden; }
+.me-card__bar i { display: block; width: 64%; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--c-primary-light), var(--c-primary)); }
+.me-card__grow span { font-size: 10px; color: var(--c-ink-3); display: block; margin-top: 5px; }
+.me-card__stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 14px -14px 0; border-top: 1px solid var(--c-line); position: relative; z-index: 1; }
+.me-card__stats > div { text-align: center; padding: 10px 0 4px; }
+.me-card__stats > div + div { border-left: 1px solid var(--c-line); }
+.me-card__stats b { font-size: 14px; display: block; color: var(--c-ink); font-weight: 700; }
+.me-card__stats span { font-size: 10.5px; color: var(--c-ink-3); }
+
+/* 猫系头像装饰：耳朵 + 腮红 */
+.ava-ear { position: absolute; top: -11px; width: 21px; height: 19px; background: var(--c-primary); z-index: 2; }
+.ava-ear.l { left: 3px; clip-path: polygon(50% 0, 100% 92%, 0 100%); transform: rotate(-15deg); }
+.ava-ear.r { right: 3px; clip-path: polygon(50% 0, 100% 100%, 0 92%); transform: rotate(15deg); }
+.ava-blush { position: absolute; bottom: 15px; width: 12px; height: 7px; border-radius: 50%; background: #F49BA6; opacity: .75; }
+.ava-blush.l { left: 7px; } .ava-blush.r { right: 7px; }
+.me-ava--sm .ava-ear { width: 15px; height: 14px; top: -8px; }
+.me-ava--sm .ava-blush { width: 9px; height: 5px; bottom: 10px; }
+.me-ava--sm .ava-blush.l { left: 5px; } .me-ava--sm .ava-blush.r { right: 5px; }
+/* 犬系头像装饰：骨头贴纸 */
+.ava-sticker {
+  position: absolute; right: -13px; top: -9px; width: 30px; height: 30px;
+  background: var(--c-accent); border-radius: 50%; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transform: rotate(18deg); box-shadow: 0 2px 5px rgba(0,0,0,.18);
+}
+.ava-sticker svg { width: 16px; height: 16px; }
+.me-ava--sm .ava-sticker { width: 24px; height: 24px; right: -10px; top: -7px; }
+.me-ava--sm .ava-sticker svg { width: 13px; height: 13px; }
+
+.recharge-strip {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--c-accent); border-radius: var(--r-md); padding: 10px 14px; margin-bottom: 12px;
+}
+.phone[data-theme="standard"] .recharge-strip { background: #F1DFCF; color: #7E3710; }
+.phone[data-theme="cat"] .recharge-strip { background: #FDEFD9; color: #8A5A17; }
+.phone[data-theme="dog"] .recharge-strip { background: #FDEFCB; color: #7A5A10; }
+.recharge-strip svg { width: 20px; height: 20px; flex: none; }
+.recharge-strip b { font-size: 12.5px; flex: 1; }
+.recharge-strip .btn--sm { flex: none; background: rgba(255,255,255,.85); color: #7E3710; }
+
+.me-card-row {
+  display: flex; align-items: center; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--c-line);
+}
+.me-card-row:last-child { border-bottom: 0; }
+.me-card-row__ic {
+  width: 36px; height: 36px; border-radius: var(--r-sm); flex: none;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.me-card-row__ic svg { width: 17px; height: 17px; }
+.me-card-row b { flex: 1; font-size: 13px; color: var(--c-ink); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.me-card-row b i { font-style: normal; font-size: 10px; color: var(--c-ink-3); font-weight: 400; }
+.me-card-row > svg { width: 14px; height: 14px; color: var(--c-ink-3); }
+
+/* 宠物档案卡 */
+.pet-card { position: relative; overflow: hidden; background: var(--c-card); border: 1.5px solid var(--c-line); border-radius: var(--r-lg); padding: 14px; }
+.pet-card__deco { position: absolute; right: -20px; top: -20px; width: 94px; height: 94px; border-radius: 50%; background: var(--c-primary-soft); }
+.pet-card__head { position: relative; display: flex; align-items: center; gap: 11px; }
+.pet-card__id { flex: 1; min-width: 0; }
+.pet-card__id b { font-size: 14.5px; color: var(--c-ink); display: block; }
+.pet-card__id span { font-size: 10.5px; color: var(--c-ink-3); }
+.tag--tilt {
+  background: var(--c-card); border: 1.5px dashed var(--c-primary-light); color: var(--c-primary-deep);
+  transform: rotate(4deg); font-size: 10px; padding: 2.5px 9px; border-radius: 8px; flex: none;
+}
+.phone[data-theme="dog"] .tag--tilt { transform: rotate(-4deg); border-color: var(--c-accent); }
+
+.remind { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 13px; }
+.remind__tile { display: flex; flex-direction: column; gap: 6px; background: var(--c-bg); border: 1px solid var(--c-line); border-radius: var(--r-md); padding: 10px 11px; min-width: 0; }
+.remind__row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.remind__ic { width: 24px; height: 24px; border-radius: 50%; flex: none; background: var(--c-primary-soft); color: var(--c-primary-deep); display: flex; align-items: center; justify-content: center; }
+.remind__ic svg { width: 12px; height: 12px; }
+.remind__row b { flex: 1; min-width: 0; font-size: 12.5px; color: var(--c-ink); white-space: nowrap; }
+.remind__state { font-size: 8.5px; font-weight: 700; padding: 2px 5px; border-radius: 99px; flex: none; white-space: nowrap; }
+.remind__state.ok { background: var(--c-success-soft); color: var(--c-success); }
+.remind__state.soon { background: #FDF3E0; color: #B84A00; }
+.remind__state.due { background: var(--c-sale-soft); color: var(--c-sale); }
+.remind__next { font-size: 10px; color: var(--c-ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.remind__next.is-due { color: var(--c-sale); font-weight: 700; }
+
+.pet-card__sec { display: flex; align-items: baseline; justify-content: space-between; margin-top: 15px; }
+.pet-card__sec-t { font-size: 12.5px; font-weight: 700; color: var(--c-ink); display: flex; align-items: center; gap: 6px; }
+.pet-card__sec-t::before { content: ""; width: 4px; height: 11px; border-radius: 2px; background: var(--c-primary); }
+.pet-card__sec-r b { font-size: 14px; color: var(--c-ink); }
+.pet-card__sec-r small { font-size: 10px; color: var(--c-ink-3); margin-left: 4px; }
+
+.wchart { display: block; width: 100%; margin-top: 8px; }
+.wchart__dates { display: flex; justify-content: space-between; font-size: 9px; color: var(--c-ink-3); margin-top: 1px; }
+
+.care-row { display: flex; align-items: center; gap: 10px; padding: 11px 0 10px; border-bottom: 1px dashed var(--c-line); }
+.care-row:last-child { border-bottom: 0; padding-bottom: 2px; }
+.care-row__ic {
+  width: 34px; height: 34px; border-radius: var(--r-sm); flex: none;
+  background: var(--c-primary-soft); color: var(--c-primary-deep);
+  display: flex; align-items: center; justify-content: center;
+}
+.care-row__ic svg { width: 16px; height: 16px; }
+.care-row__t { flex: 1; min-width: 0; }
+.care-row__t b { font-size: 12.5px; color: var(--c-ink); display: block; }
+.care-row__t b em { font-style: normal; color: var(--c-ink-3); font-weight: 400; font-size: 10px; margin-left: 5px; }
+.care-days { font-size: 11px; font-weight: 700; color: var(--c-success); }
+.care-days.warn { color: var(--c-sale); }
+
+.tl { margin-top: 11px; margin-left: 3px; border-left: 2px dashed var(--c-line); padding-left: 13px; display: flex; flex-direction: column; gap: 9px; }
+.tl__it { position: relative; display: flex; gap: 8px; align-items: baseline; font-size: 11px; }
+.tl__it i {
+  position: absolute; left: -18.5px; top: 3px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c-card); border: 2px solid var(--c-primary-light);
+}
+.tl__it span { color: var(--c-ink-3); font-variant-numeric: tabular-nums; flex: none; }
+.tl__it b { color: var(--c-ink-2); font-weight: 500; }
+.tl__ico { display: inline-flex; width: 13px; height: 13px; margin-right: 3px; vertical-align: -2px; color: var(--c-accent); flex: none; }
+.tl__ico svg { width: 100%; height: 100%; }
+
+.pet-dots { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 13px 0 2px; }
+.pet-dot {
+  appearance: none; border: 0; cursor: pointer; padding: 0;
+  width: 7px; height: 7px; border-radius: 99px; background: var(--c-line);
+  transition: width .25s, background .25s;
+}
+.pet-dot.is-on { width: 18px; background: var(--c-primary); }
+
+/* 猫/狗主题可爱化：爪印波点 / 骨头波点背景 */
+.phone[data-theme="cat"] .phone__screen {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='%23F2A7B8' fill-opacity='.17' transform='rotate(-18 18 20)'%3E%3Cellipse cx='18' cy='24' rx='6.5' ry='5.4'/%3E%3Ccircle cx='11.5' cy='15.5' r='2.7'/%3E%3Ccircle cx='17' cy='13.5' r='2.7'/%3E%3Ccircle cx='22.5' cy='14.5' r='2.7'/%3E%3Ccircle cx='27' cy='19' r='2.7'/%3E%3C/g%3E%3Cg fill='%23F4A259' fill-opacity='.13' transform='rotate(24 54 52)'%3E%3Cellipse cx='54' cy='56' rx='6.5' ry='5.4'/%3E%3Ccircle cx='47.5' cy='47.5' r='2.7'/%3E%3Ccircle cx='53' cy='45.5' r='2.7'/%3E%3Ccircle cx='58.5' cy='46.5' r='2.7'/%3E%3Ccircle cx='63' cy='51' r='2.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+.phone[data-theme="dog"] .phone__screen {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='76' viewBox='0 0 76 76'%3E%3Cg fill='%237BC0F2' fill-opacity='.13' transform='rotate(-24 20 18)'%3E%3Ccircle cx='14' cy='13' r='3'/%3E%3Ccircle cx='14' cy='21' r='3'/%3E%3Ccircle cx='26' cy='13' r='3'/%3E%3Ccircle cx='26' cy='21' r='3'/%3E%3Crect x='13' y='12.5' width='14' height='9' rx='4'/%3E%3C/g%3E%3Cg fill='%23F7B32B' fill-opacity='.16' transform='rotate(28 54 54)'%3E%3Cellipse cx='54' cy='58' rx='6.5' ry='5.4'/%3E%3Ccircle cx='47.5' cy='49.5' r='2.7'/%3E%3Ccircle cx='53' cy='47.5' r='2.7'/%3E%3Ccircle cx='58.5' cy='48.5' r='2.7'/%3E%3Ccircle cx='63' cy='53' r='2.7'/%3E%3C/g%3E%3C/svg%3E");
+}
+/* Q 弹按钮反馈（猫/狗专属） */
+.phone[data-theme="cat"] .btn,
+.phone[data-theme="dog"] .btn { transition: transform .3s cubic-bezier(.34, 1.6, .64, 1); }
+.phone[data-theme="cat"] .btn:active,
+.phone[data-theme="dog"] .btn:active { transform: scale(.9); }
+/* Banner 角落贴纸 */
+.phone[data-theme="cat"] .hero::after,
+.phone[data-theme="cat"] .mall-sale::after {
+  content: ""; position: absolute; right: 10px; top: 10px; width: 32px; height: 32px; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23fff' fill-opacity='.95'%3E%3Cellipse cx='12' cy='15.8' rx='4.2' ry='3.6'/%3E%3Ccircle cx='5.8' cy='10.8' r='1.9'/%3E%3Ccircle cx='9.7' cy='7.6' r='1.9'/%3E%3Ccircle cx='14.3' cy='7.6' r='1.9'/%3E%3Ccircle cx='18.2' cy='10.8' r='1.9'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  transform: rotate(14deg);
+}
+.phone[data-theme="dog"] .hero::after,
+.phone[data-theme="dog"] .mall-sale::after {
+  content: ""; position: absolute; right: 10px; top: 10px; width: 34px; height: 34px; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23fff' fill-opacity='.95' transform='rotate(45 12 12)'%3E%3Ccircle cx='6.2' cy='9.2' r='2.7'/%3E%3Ccircle cx='6.2' cy='14.8' r='2.7'/%3E%3Ccircle cx='17.8' cy='9.2' r='2.7'/%3E%3Ccircle cx='17.8' cy='14.8' r='2.7'/%3E%3Crect x='6.6' y='9.4' width='10.8' height='5.2' rx='2.4'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  transform: rotate(-10deg);
+}
+
+/* ============ 设计规范对比区 ============ */
+.spec-sec { margin-top: 72px; }
+.spec-sec > h2 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+.spec-sec > p { font-size: 14px; color: #5C4F43; margin-bottom: 28px; max-width: 640px; }
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.spec-card {
+  background: #fff; border: 1px solid #E3D9CE; border-radius: 20px;
+  padding: 22px 22px 24px;
+}
+.spec-card h3 { font-size: 16.5px; font-weight: 700; display: flex; align-items: center; gap: 9px; }
+.spec-card h3 i {
+  font-style: normal; width: 13px; height: 13px; border-radius: 4px; flex: none;
+}
+.spec-card > p { font-size: 12.5px; color: #776A5E; margin: 5px 0 16px; }
+.swatches { display: flex; gap: 8px; margin-bottom: 16px; }
+.swatch { flex: 1; min-width: 0; }
+.swatch i { display: block; height: 42px; border-radius: 10px; margin-bottom: 5px; border: 1px solid rgba(0,0,0,.06); }
+.swatch span { font-size: 9.5px; color: #776A5E; display: block; text-align: center; font-variant-numeric: tabular-nums; }
+.spec-demo {
+  border: 1px dashed #E3D9CE; border-radius: 14px; padding: 16px 14px;
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+}
+.spec-demo .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.spec-radius { font-size: 11.5px; color: #776A5E; display: flex; gap: 6px; align-items: center; }
+.spec-radius i {
+  width: 26px; height: 26px; background: var(--c-primary-soft); border: 1.5px solid var(--c-primary);
+}
+.spec-radius i:nth-child(1){border-radius:6px}
+.spec-radius i:nth-child(2){border-radius:var(--r-sm)}
+.spec-radius i:nth-child(3){border-radius:var(--r-md)}
+.spec-radius i:nth-child(4){border-radius:var(--r-lg)}
+
+.doc-foot {
+  margin-top: 64px; padding-top: 20px; border-top: 1px solid #E3D9CE;
+  font-size: 12.5px; color: #776A5E; display: flex; gap: 18px; flex-wrap: wrap;
+}
+.doc-foot a { color: #B8551D; text-decoration: none; }
+
+/* ============ 响应式 ============ */
+@media (max-width: 1160px) {
+  .phones { grid-template-columns: repeat(2, 1fr); }
+  .spec-grid { grid-template-columns: 1fr; max-width: 480px; }
+}
+@media (max-width: 780px) {
+  .wrap { padding: 32px 18px 56px; }
+  .phones { grid-template-columns: 1fr; gap: 32px; }
+  .page-tabs { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc-head">
+    <div class="doc-head__eyebrow">PetShop Mini Program · UI Spec · v1.1 · 2026-09-15</div>
+    <h1>宠物店小程序 UI 设计稿</h1>
+    <p>同一套页面结构，<b>三套可切换主题</b>：标准模式（专业暖赭，全龄段通用）、喵喵主题（奶油蜜桃 + 猫系元素）、汪汪主题（天蓝明黄 + 犬系元素）。点击顶部标签切换页面，三台原型机同步预览。</p>
+    <p><b>范围标注</b>：本稿页面元素全部属于<b>一期（MVP）</b>。二期功能（商家版小程序、顾客自助买单、同城配送、积分抵现与兑换、营销玩法如优惠券 / 生日券 / 秒杀、小票打印机、批次与保质期）<b>不得出现在本稿页面中</b>——「我的」页此前画出的「优惠券」计数已替换为一期实际能力「退款记录」。</p>
+    <p><b>信息架构的权威来源是 PRD 3.x</b>。本稿以下几处与 PRD 当前描述不一致，属<b>设计先行、待产品拍板</b>的提案，未确认前开发以 PRD 为准：
+    <br>① 首页形态——本稿为「问候语 + 功能大卡」，PRD 3.2 为「门店信息卡 + 服务分类宫格 + 特卖专区横滑 + 价目表入口」；
+    <br>② 价目表形态——本稿为「方块瀑布流」，PRD 3.2 为「服务项目卡片流」；
+    <br>③ 门店信息位置——本稿移至预约页「到店信息」与「我的」页入口，PRD 2.1 / 3.2 放在首页第一屏。
+    <br>任一项被采纳，须同步回写 PRD 3.2 后再开工。</p>
+    <p>「我的」页含余额 / 次卡 / 退款记录 / 等级与<b>宠物档案卡</b>（疫苗 / 驱虫到期提醒、体重趋势、洗澡美容记录，点击圆点切换宠物）。价格类展示数值一律取自 <code>../petshop-data/pricing.json</code>（唯一事实来源）。</p>
+  </header>
+
+  <nav class="page-tabs" id="pageTabs" role="tablist" aria-label="页面切换"></nav>
+
+  <main class="phones" id="phones"></main>
+
+  <section class="spec-sec">
+    <h2>设计规范对比</h2>
+    <p>三套主题共享同一套组件结构与信息层级，仅通过设计令牌（色彩 / 圆角 / 装饰元素 / 文案语气）差异化，保证开发时可一套代码、配置切换。</p>
+    <div class="spec-grid" id="specGrid"></div>
+  </section>
+
+  <footer class="doc-foot">
+    <span>依据：《项目规划》 · 《产品需求文档》 · 《技术设计文档》 · 数据集 pricing.json</span>
+    <a href="../petshop-plan/petshop-plan.html">项目规划</a>
+    <a href="../petshop-prd/petshop-prd.html">产品需求文档</a>
+    <a href="../petshop-tech-design/petshop-tech-design.html">技术设计文档</a>
+    <a href="../petshop-data/CHANGELOG.md">变更记录</a>
+  </footer>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="i-home" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6.5 10.2V20h4v-4.8h3V20h4v-9.8"/></g>
+    <g id="i-price" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7l9 9-7 7-9-9z"/><circle cx="8.5" cy="8.5" r="1.5"/></g>
+    <g id="i-cal" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/></g>
+    <g id="i-mall" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5h11l-1 12h-9z"/><path d="M9 11V7a3 3 0 0 1 6 0v4"/></g>
+    <g id="i-user" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/></g>
+    <g id="i-paw"><ellipse cx="12" cy="15.8" rx="4.2" ry="3.6" fill="currentColor"/><circle cx="5.8" cy="10.8" r="1.9" fill="currentColor"/><circle cx="9.7" cy="7.6" r="1.9" fill="currentColor"/><circle cx="14.3" cy="7.6" r="1.9" fill="currentColor"/><circle cx="18.2" cy="10.8" r="1.9" fill="currentColor"/></g>
+    <g id="i-bone" fill="currentColor"><g transform="rotate(45 12 12)"><circle cx="6.2" cy="9.2" r="2.7"/><circle cx="6.2" cy="14.8" r="2.7"/><circle cx="17.8" cy="9.2" r="2.7"/><circle cx="17.8" cy="14.8" r="2.7"/><rect x="6.6" y="9.4" width="10.8" height="5.2" rx="2.4"/></g></g>
+    <g id="i-vip" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 17.5 5.5 7.5l5 4L12 6l1.5 5.5 5-4L20 17.5z"/><path d="M4.5 20.5h15"/></g>
+    <g id="i-wallet" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="6.5" width="16" height="13" rx="2.5"/><path d="M15 13h5"/><circle cx="15.5" cy="13" r="1" fill="currentColor" stroke="none"/></g>
+    <g id="i-card" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5.5" width="16" height="13" rx="2.5"/><path d="M4 9.5h16"/></g>
+    <g id="i-search" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5 20 20"/></g>
+    <g id="i-pin" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5C7.5 15.7 5.5 13 5.5 10a6.5 6.5 0 0 1 13 0c0 3-2 5.7-6.5 10.5z"/><circle cx="12" cy="9.7" r="2.2"/></g>
+    <g id="i-clock" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="7.5"/><path d="M12 8v4.2l3 1.9"/></g>
+    <g id="i-arrow" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></g>
+    <g id="i-fish" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 12c2.5-3.5 6.5-5 10-3.5l2.8-2.6-.7 3.4.7 3.4-2.8-2.6c-3.5 1.5-7.5 0-10-3.5z" transform="translate(0 2.5)"/><circle cx="7" cy="13.5" r="0.7" fill="currentColor" stroke="none"/></g>
+    <g id="i-ball" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M4.5 9.3c4.6 2.1 10.4 2.1 15 0M4.5 14.7c4.6-2.1 10.4-2.1 15 0"/></g>
+    <g id="i-food" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13.5h14l-1.6 5.5H6.6z"/><path d="M8.5 13.5C7.5 9 9.5 6 12 6s4.5 3 3.5 7.5"/><path d="M12 6V4.5"/></g>
+    <g id="i-brush" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="7" rx="2"/><path d="M7 12v3M12 12v3M17 12v3M8 15.5h8l-1 4.5H9z"/></g>
+    <g id="i-sparkle" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l1.7 4.8L18.5 10.5l-4.8 1.7L12 17l-1.7-4.8L5.5 10.5l4.8-1.7z"/><path d="M18.5 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></g>
+    <g id="i-soap" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="9" width="14" height="10" rx="3"/><circle cx="10" cy="5" r="1.6"/><circle cx="15" cy="6" r="1.1"/><circle cx="6.5" cy="5.5" r="0.9"/></g>
+    <g id="i-order" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9.5 8h5M9.5 12h5"/></g>
+    <g id="i-shield" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.5v5.5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2.2 2.2L15.5 9.8"/></g>
+    <g id="i-bug" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="13.5" rx="4" ry="5"/><path d="M12 8.5V6M8.5 9.5 6.5 7.5M15.5 9.5l2-2M8 13.5H5.5M16 13.5h2.5M8.5 17.5l-2 2M15.5 17.5l2 2"/><path d="M10.3 12.5h.01M13.7 12.5h.01"/></g>
+    <g id="i-phone" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3.5h8a1.5 1.5 0 0 1 1.5 1.5v14A1.5 1.5 0 0 1 16 20.5H8A1.5 1.5 0 0 1 6.5 19V5A1.5 1.5 0 0 1 8 3.5z"/><path d="M10.5 17.5h3"/></g>
+  </defs>
+</svg>
+
+<script>
+'use strict';
+
+/* ---------- 工具 ---------- */
+function icon(name) { return '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#' + name + '"></use></svg>'; }
+
+/* ---------- 主题数据（文案 + 配置） ---------- */
+var THEMES = {
+  standard: {
+    id: 'standard', name: '标准模式', en: 'STANDARD', chip: '#B8551D',
+    desc: '专业暖赭 · 全龄段通用',
+    banner: './assets/banner-standard.jpg',
+    appbarHome: '萌爪宠物生活馆',
+    greet: '欢迎光临', greetSub: '今天也要好好照顾毛孩子',
+    bannerTitle: '专业洗护 · 呵护每一根毛发', bannerSub: '资深美容师 · 全程可视化',
+    ctaBook: '立即预约', ctaMore: '查看全部',
+    saleTag: '限时特卖', saleWord: '特卖',
+    vipName: '黄金会员', vipOff: '全场服务 8.8 折',
+    walletName: '我的余额', cardName: '猫类洗澡 10 次卡',
+    payNote: '预约将冻结余额 ¥30，服务完成后结算扣除',
+    quickSale: '特卖专区',
+    petSec: '宠物档案', addPet: '添加宠物', nextLevel: '铂金'
+  },
+  cat: {
+    id: 'cat', name: '喵喵主题', en: 'MEOW', chip: '#D9587A',
+    desc: '奶油蜜桃 · 猫系治愈 · 爪印波点',
+    banner: './assets/banner-cat.jpg',
+    appbarHome: '萌爪宠物生活馆',
+    greet: '喵～欢迎回家', greetSub: '今天也要美美哒',
+    bannerTitle: '洗香香 变美美', bannerSub: '温柔手法 · 喵之呵护',
+    ctaBook: '预约洗澡澡', ctaMore: '更多',
+    saleTag: '喵价特价', saleWord: '喵价',
+    vipName: '银渐层会员', vipOff: '服务 8.8 折起',
+    walletName: '小金库', cardName: '喵喵澡澡卡',
+    payNote: '预约将冻结小金库 ¥30，服务完成后结算扣除',
+    quickSale: '喵价专区',
+    petSec: '毛孩子档案', addPet: '新增毛孩子', nextLevel: '布偶'
+  },
+  dog: {
+    id: 'dog', name: '汪汪主题', en: 'WOOF', chip: '#3380CE',
+    desc: '天蓝明黄 · 犬系活力 · 骨头贴纸',
+    banner: './assets/banner-dog.jpg',
+    appbarHome: '萌爪宠物生活馆',
+    greet: '汪！准备出发', greetSub: '冲鸭，洗澡澡喽',
+    bannerTitle: '洗澡澡 冲鸭！', bannerSub: '元气洗护 · 汪力全开',
+    ctaBook: '冲鸭！预约', ctaMore: '全部',
+    saleTag: '骨折特卖', saleWord: '骨折价',
+    vipName: '金毛会员', vipOff: '服务 8.8 折起',
+    walletName: '零花钱罐', cardName: '汪汪洗澡卡',
+    payNote: '预约将冻结零花钱罐 ¥30，服务完成后结算扣除',
+    quickSale: '特卖冲鸭',
+    petSec: '汪汪档案', addPet: '再养一只！', nextLevel: '拉布拉多'
+  }
+};
+
+/* 主题特色按钮图标：猫 = 肉球，狗 = 骨头，标准 = 爪印 */
+var CTA_ICON = { standard: 'i-paw', cat: 'i-paw', dog: 'i-bone' };
+
+/* ---------- 宠物档案数据（只读，商家服务流水自动生成） ---------- */
+var PETS = {
+  standard: [
+    {
+      emoji: '🐱', name: '橘子', breed: '英国短毛猫', age: '2 岁', sex: '♂', sticker: '已绝育',
+      vac: { next: '2026-10-15', state: 'ok' }, worm: { next: '2026-09-28', state: 'soon' },
+      weight: [4.2, 4.35, 4.5, 4.55, 4.7], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 24, hint: '建议每 2 周' }, groom: { days: 47, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-08-10', txt: '体外驱虫 · 大宠爱' },
+        { date: '2026-07-30', txt: '精细美容 · 全身修剪' },
+        { date: '2026-04-20', txt: '疫苗加强 · 妙三多' }
+      ]
+    },
+    {
+      emoji: '🐶', name: '旺财', breed: '金毛寻回犬', age: '3 岁', sex: '♀', sticker: '已绝育',
+      vac: { next: '2026-11-10', state: 'ok' }, worm: { next: '2026-10-12', state: 'ok' },
+      weight: [26.5, 26.8, 27.0, 27.2, 27.4], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 16, hint: '建议每 2 周' }, groom: { days: 47, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-08-30', txt: '精致洗护 · 大型犬' },
+        { date: '2026-08-10', txt: '体外驱虫 · 尼可信' },
+        { date: '2026-03-18', txt: '疫苗加强' }
+      ]
+    }
+  ],
+  cat: [
+    {
+      emoji: '🐱', name: '橘子', breed: '英国短毛猫', age: '2 岁', sex: '♂', sticker: '社恐小猫',
+      vac: { next: '2026-10-15', state: 'ok' }, worm: { next: '2026-09-28', state: 'soon' },
+      weight: [4.2, 4.35, 4.5, 4.55, 4.7], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 24, hint: '建议每 2 周' }, groom: { days: 47, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-08-10', txt: '体外驱虫 · 大宠爱' },
+        { date: '2026-07-30', txt: '精细美容 · 全身修剪' },
+        { date: '2026-04-20', txt: '疫苗加强 · 妙三多' }
+      ]
+    },
+    {
+      emoji: '🐱', name: '汤圆', breed: '布偶猫', age: '1 岁', sex: '♀', sticker: '黏人精',
+      vac: { next: '2026-11-02', state: 'ok' }, worm: { next: '2026-09-10', state: 'due' },
+      weight: [3.6, 3.75, 3.8, 3.95, 4.05], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 13, hint: '建议每 2 周' }, groom: { days: 31, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-09-02', txt: '精致洗护 · 长毛猫' },
+        { date: '2026-08-15', txt: '精细美容' },
+        { date: '2026-07-12', txt: '体内驱虫 · 拜耳' }
+      ]
+    }
+  ],
+  dog: [
+    {
+      emoji: '🐶', name: '糯米', breed: '柯基', age: '1 岁半', sex: '♂', sticker: '干饭王',
+      vac: { next: '2026-10-20', state: 'ok' }, worm: { next: '2026-10-01', state: 'ok' },
+      weight: [9.8, 10.1, 10.15, 10.4, 10.6], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 10, hint: '建议每 2 周' }, groom: { days: 28, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-09-05', txt: '精致洗护 · 中型犬' },
+        { date: '2026-08-28', txt: '药浴 SPA' },
+        { date: '2026-06-18', txt: '狂犬疫苗' }
+      ]
+    },
+    {
+      emoji: '🐶', name: '旺财', breed: '金毛寻回犬', age: '3 岁', sex: '♀', sticker: '小天使',
+      vac: { next: '2026-11-10', state: 'ok' }, worm: { next: '2026-10-12', state: 'ok' },
+      weight: [26.5, 26.8, 27.0, 27.2, 27.4], dates: ['5月', '6月', '7月', '8月', '9月'],
+      bath: { days: 16, hint: '建议每 2 周' }, groom: { days: 47, hint: '建议每 6 周' },
+      tl: [
+        { date: '2026-08-30', txt: '精致洗护 · 大型犬' },
+        { date: '2026-08-10', txt: '体外驱虫 · 尼可信' },
+        { date: '2026-03-18', txt: '疫苗加强' }
+      ]
+    }
+  ]
+};
+
+/* 每台原型机当前展示的宠物索引 */
+var petIdx = { standard: 0, cat: 0, dog: 0 };
+
+/* 头像装饰：猫 = 耳朵 + 腮红，狗 = 骨头贴纸，标准 = 无 */
+function avaDecor(t) {
+  if (t.id === 'cat') {
+    return '<span class="ava-ear l"></span><span class="ava-ear r"></span>' +
+      '<span class="ava-blush l"></span><span class="ava-blush r"></span>';
+  }
+  if (t.id === 'dog') {
+    return '<span class="ava-sticker">' + icon('i-bone') + '</span>';
+  }
+  return '';
+}
+
+/* 体重趋势迷你折线图 */
+function weightChart(w, dates) {
+  var W = 260, H = 58, padX = 10, padY = 8;
+  var min = Math.min.apply(null, w), max = Math.max.apply(null, w);
+  var span = (max - min) || 1;
+  var pts = w.map(function (v, i) {
+    var x = padX + i * (W - 2 * padX) / (w.length - 1);
+    var y = H - padY - ((v - min) / span) * (H - 2 * padY - 6);
+    return [x, y];
+  });
+  var line = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+  var area = padX + ',' + (H - 2) + ' ' + line + ' ' + (W - padX) + ',' + (H - 2);
+  var dots = pts.map(function (p, i) {
+    var last = i === pts.length - 1;
+    return '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (last ? 4 : 2.6) +
+      '" fill="' + (last ? 'var(--c-primary)' : '#fff') + '" stroke="var(--c-primary)" stroke-width="2"/>';
+  }).join('');
+  var lastPt = pts[pts.length - 1];
+  var labelX = Math.min(lastPt[0] - 8, W - 26);
+  var labelY = Math.max(lastPt[1] - 7, 9);
+  return '<svg class="wchart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="体重趋势">' +
+    '<polygon points="' + area + '" fill="var(--c-primary)" fill-opacity=".1"/>' +
+    '<polyline points="' + line + '" fill="none" stroke="var(--c-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+    dots +
+    '<text x="' + labelX.toFixed(1) + '" y="' + labelY.toFixed(1) + '" text-anchor="end" font-size="10.5" font-weight="700" fill="var(--c-ink)">' + w[w.length - 1] + 'kg</text>' +
+    '</svg>' +
+    '<div class="wchart__dates"><span>' + dates[0] + '</span><span>' + dates[Math.floor(dates.length / 2)] + '</span><span>' + dates[dates.length - 1] + '</span></div>';
+}
+
+/* 疫苗 / 驱虫提醒小卡 */
+function remindTile(ic, name, o) {
+  var txt = o.state === 'ok' ? '已排期' : o.state === 'soon' ? '即将到期' : '已到期';
+  return '<div class="remind__tile">' +
+    '<div class="remind__row"><span class="remind__ic">' + icon(ic) + '</span>' +
+    '<b>' + name + '</b>' +
+    '<span class="remind__state ' + o.state + '">' + txt + '</span></div>' +
+    '<span class="remind__next' + (o.state === 'due' ? ' is-due' : '') + '">下次 ' + o.next + '</span></div>';
+}
+
+/* 洗护记录行（洗澡 / 美容 + 预约引导） */
+function careRow(ic, label, o) {
+  var warn = o.days >= (label === '上次洗澡' ? 14 : 42);
+  return '<div class="care-row"><span class="care-row__ic">' + icon(ic) + '</span>' +
+    '<div class="care-row__t"><b>' + label + '<em>' + o.hint + '</em></b>' +
+    '<span class="care-days' + (warn ? ' warn' : '') + '">已 ' + o.days + ' 天</span></div>' +
+    '<button class="btn btn--ghost btn--sm">去预约</button></div>';
+}
+
+/* 宠物档案卡 */
+function petCard(p, t) {
+  var w = p.weight;
+  var delta = w[w.length - 1] - w[w.length - 2];
+  return '<div class="pet-card">' +
+    '<span class="pet-card__deco"></span>' +
+    '<div class="pet-card__head">' +
+      '<div class="me-ava me-ava--sm">' + avaDecor(t) + p.emoji + '</div>' +
+      '<div class="pet-card__id"><b>' + p.name + '</b><span>' + p.breed + ' · ' + p.age + ' · ' + p.sex + '</span></div>' +
+      '<span class="tag tag--tilt">' + p.sticker + '</span>' +
+    '</div>' +
+    '<div class="remind">' +
+      remindTile('i-shield', '疫苗', p.vac) +
+      remindTile('i-bug', '驱虫', p.worm) +
+    '</div>' +
+    '<div class="pet-card__sec"><span class="pet-card__sec-t">体重记录</span>' +
+      '<span class="pet-card__sec-r"><b>' + w[w.length - 1] + ' kg</b><small>较上次 ' + (delta >= 0 ? '+' : '') + delta.toFixed(2) + '</small></span></div>' +
+    weightChart(w, p.dates) +
+    '<div class="pet-card__sec"><span class="pet-card__sec-t">洗护记录</span></div>' +
+    '<div>' +
+      careRow('i-soap', '上次洗澡', p.bath) +
+      careRow('i-brush', '上次美容', p.groom) +
+    '</div>' +
+    '<div class="pet-card__sec"><span class="pet-card__sec-t">近期记录</span></div>' +
+    '<div class="tl">' + p.tl.map(function (d) {
+      var kind = /疫苗|狂犬/.test(d.txt) ? 'i-shield' : /驱虫/.test(d.txt) ? 'i-bug' : '';
+      var ico = kind ? '<em class="tl__ico">' + icon(kind) + '</em>' : '';
+      return '<div class="tl__it"><i></i><span>' + d.date + '</span><b>' + ico + d.txt + '</b></div>';
+    }).join('') + '</div>' +
+    '<div class="note-bar" style="margin-top:13px">' + icon('i-clock') +
+      '<span>档案由商家服务后自动更新（只读），如有出入请联系门店修正。</span></div>' +
+  '</div>';
+}
+
+/* ---------- 页面注册 ---------- */
+var PAGES = [
+  { id: 'home',    name: '首页',   ic: 'i-home' },
+  { id: 'price',   name: '价目表', ic: 'i-price' },
+  { id: 'appt',    name: '预约',   ic: 'i-cal' },
+  { id: 'mall',    name: '商城',   ic: 'i-mall' },
+  { id: 'me',      name: '我的',   ic: 'i-user' }
+];
+
+/* ---------- 页面模板 ---------- */
+
+function pageHome(t) {
+  return '' +
+  '<div class="greet"><h5>' + t.greet + '</h5><p>' + t.greetSub + '</p></div>' +
+  '<div class="hero hero--slim"><img src="' + t.banner + '" alt="门店主推洗护服务">' +
+    '<div class="hero__veil"></div>' +
+    '<div class="hero__txt"><div><h5>' + t.bannerTitle + '</h5></div></div>' +
+  '</div>' +
+  '<div class="feat">' +
+    fcardHero(t) +
+    fcard('i-price', 'soft', '价目表', '透明定价 · 会员折扣') +
+    fcard('i-mall', 'cool', '宠物商城', '粮食玩具 · 限' + t.saleWord, 'i-arrow') +
+    fcard('i-card', 'warm', '次卡商店', '多次更划算', 'i-arrow') +
+    fcard('i-wallet', 'green', t.walletName, '充值有赠送', 'i-arrow') +
+  '</div>' +
+  '<div class="sec-head"><h4>' + icon('i-sparkle') + t.saleTag + '</h4>' +
+    '<a>' + t.ctaMore + ' ' + icon('i-arrow') + '</a></div>' +
+  '<div class="sale-strip">' +
+    saleGood('#F2A7B8', 'i-food', '冻干猫条 12 支', 29.9, 19.9) +
+    saleGood('#7BC0F2', 'i-ball', '耐咬漏食球', 39.0, 25.0) +
+  '</div>' +
+  '<div class="sec-head"><h4>' + icon('i-soap') + '热门服务</h4>' +
+    '<a>查看价目 ' + icon('i-arrow') + '</a></div>' +
+  '<div class="card">' +
+    svcRow('i-soap', '精致洗护 · 短毛猫', '约 45 分钟 · 含吹干造型', 88, 77.4) +
+    svcRow('i-brush', '精细美容 · 长毛猫', '约 90 分钟 · 含梳毛解结', 158, 139.0) +
+    svcRow('i-sparkle', 'SPA 药浴 · 中型犬', '约 60 分钟 · 深层滋养', 128, 112.6) +
+  '</div>';
+
+  function fcardHero(t) {
+    return '<button class="fcard fcard--hero">' +
+      '<span class="fcard__ic">' + icon('i-cal') + '</span>' +
+      '<span class="fcard__t"><b>服务预约</b><span>' + t.bannerSub + ' · 今日余位 6</span></span>' +
+      '<span class="fcard__cta">' + t.ctaBook + '</span></button>';
+  }
+  function fcard(ic, tone, name, sub, arw) {
+    return '<button class="fcard">' +
+      '<span class="fcard__ic fcard__ic--' + tone + '">' + icon(ic) + '</span>' +
+      '<span class="fcard__t"><b>' + name + '</b><span>' + sub + '</span></span>' +
+      (arw ? icon(arw) : '') + '</button>';
+  }
+  function saleGood(bg, ic, name, was, now) {
+    return '<div class="sale-card"><div class="sale-card__img" style="background:' + bg + '">' + icon(ic) + '</div>' +
+      '<b>' + name + '</b><div class="p"><span class="price"><small>¥</small>' + now.toFixed(1) + '</span>' +
+      '<span style="font-size:10.5px;color:var(--c-ink-3);text-decoration:line-through">¥' + was.toFixed(1) + '</span></div></div>';
+  }
+  function svcRow(ic, name, sub, was, member) {
+    return '<div class="svc-row"><div class="svc-row__ic">' + icon(ic) + '</div>' +
+      '<div class="svc-row__txt"><b>' + name + '</b><span>' + icon('i-clock') + sub + '</span></div>' +
+      '<div class="svc-row__buy"><div class="price"><small>¥</small>' + was + '</div>' +
+      '<div class="price--member">会员 ¥' + member.toFixed(1) + '</div></div></div>';
+  }
+}
+
+function pagePrice(t) {
+  var catMode = t.id !== 'dog';
+  /* 方块服务数据：[图标, 名称, 规格, 原价, 会员价, 色调] */
+  var wash = catMode ? [
+    ['i-soap', '精致洗护 · 短毛猫', '约 45 分钟 · 含吹干造型', 88, 77.4, 'soft'],
+    ['i-soap', '精致洗护 · 长毛猫', '约 60 分钟 · 含梳毛解结', 118, 103.8, 'cool'],
+    ['i-brush', '精细美容 · 按体型分档', '约 90 分钟 · 剪毛造型', 158, 139.0, 'warm'],
+    ['i-sparkle', 'SPA 药浴 · 深层滋养', '约 30 分钟 · 可单独加购', 68, 59.8, 'green']
+  ] : [
+    ['i-soap', '精致洗护 · 小型犬', '≤10kg · 约 50 分钟', 68, 59.8, 'soft'],
+    ['i-soap', '精致洗护 · 中型犬', '10-25kg · 约 65 分钟', 98, 86.2, 'cool'],
+    ['i-soap', '精致洗护 · 大型犬', '25kg+ · 约 90 分钟', 168, 147.8, 'warm'],
+    ['i-sparkle', 'SPA 药浴 · 深层滋养', '约 30 分钟 · 可单独加购', 68, 59.8, 'green']
+  ];
+  var extra = catMode ? [
+    ['i-brush', '解结护理 · 按难度', '约 20 分钟 · 单独加购', 40, 35.2, 'warm'],
+    ['i-bug', '体外驱虫', '到店服务 · 含建档', 60, 52.8, 'green']
+  ] : [
+    ['i-brush', '解结护理 · 按难度', '约 20 分钟 · 单独加购', 40, 35.2, 'warm'],
+    ['i-bug', '体外驱虫', '到店服务 · 含建档', 60, 52.8, 'green']
+  ];
+  /* 瀑布流分列：交替放入左右两列，产生错落高度 */
+  var all = wash.concat(extra);
+  var left = [], right = [];
+  all.forEach(function (s, i) { (i % 2 === 0 ? left : right).push(s); });
+
+  return '' +
+  '<div class="chips" style="margin-bottom:12px">' +
+    '<button class="chip' + (catMode ? ' is-on' : '') + '">' + icon('i-paw') + (catMode ? '猫咪价目' : '猫咪') + '</button>' +
+    '<button class="chip' + (!catMode ? ' is-on' : '') + '">' + icon('i-bone') + (catMode ? '狗狗' : '狗狗价目') + '</button>' +
+  '</div>' +
+  '<div class="masonry">' +
+    '<div class="mcol">' + left.map(sq).join('') + '</div>' +
+    '<div class="mcol">' + right.map(sq).join('') + '</div>' +
+  '</div>' +
+  '<div class="note-bar" style="margin-top:12px">' + icon('i-vip') +
+    '<span><b>' + t.vipName + '享服务 8.8 折</b>，会员折扣在结算时自动应用，可与次卡抵扣叠加。</span></div>' +
+  '<div style="height:10px"></div>' +
+  '<button class="btn btn--block">' + icon(CTA_ICON[t.id]) + t.ctaBook + '</button>';
+
+  function sq(s) {
+    return '<div class="sq">' +
+      '<span class="sq__deco sq__deco--' + s[5] + '"></span>' +
+      '<span class="sq__top sq__top--' + s[5] + '">' + icon(s[0]) + '</span>' +
+      '<b>' + s[1] + '</b>' +
+      '<span class="sq__sub">' + s[2] + '</span>' +
+      '<div class="sq__ft"><span class="price"><small>¥</small>' + s[3] + '</span></div>' +
+      '<span class="sq__member">会员 ¥' + s[4].toFixed(1) + '</span>' +
+    '</div>';
+  }
+}
+
+function pageAppt(t) {
+  var isCat = t.id === 'cat', isDog = t.id === 'dog';
+  var petName = isCat ? '橘子' : (isDog ? '糯米' : '橘子');
+  var petType = isCat ? '英短 · 2 岁' : (isDog ? '柯基 · 1 岁半' : '英短 · 2 岁');
+  return '' +
+  '<div class="steps">' +
+    step(1, '选宠物', true) + '<em></em>' + step(2, '选服务', true) + '<em></em>' +
+    step(3, '选时段', true) + '<em></em>' + step(4, '提交', false) +
+  '</div>' +
+  '<div class="field-label">选择宠物 <a>+ 新增宠物</a></div>' +
+  '<div class="chips">' +
+    petChip(petName, petType, true) + petChip(isCat ? '汤圆' : '旺财', isCat ? '布偶 · 1 岁' : '金毛 · 3 岁', false) +
+    '<button class="pet-chip pet-chip--add"><span class="ava"></span><b>添加</b><span>新宠物</span></button>' +
+  '</div>' +
+  '<div class="field-label">选择服务与规格</div>' +
+  '<div class="spec-list">' +
+    spec(true, '精致洗护 · ' + (isCat ? '长毛猫' : (isDog ? '中型犬' : '短毛猫')), '约 60 分钟 · 担保冻结 ¥30') +
+    spec(false, '精细美容 · 按档计价', '约 90 分钟 · 担保冻结 ¥50') +
+  '</div>' +
+  '<div class="field-label">选择日期</div>' +
+  '<div class="days">' +
+    day('周四', 11, false, false) + day('周五', 12, false, false) + day('周六', 13, true, false) +
+    day('周日', 14, false, true) + day('周一', 15, false, false) + day('周二', 16, false, false) + day('周三', 17, false, false) +
+  '</div>' +
+  '<div class="field-label">选择时段 <a>今日余位 6</a></div>' +
+  '<div class="slots">' +
+    slot('09:30', '余 2', false, false) + slot('10:30', '余 3', true, false) + slot('11:30', '已约满', false, true) +
+    slot('14:00', '余 4', false, false) + slot('15:00', '余 1', false, false) + slot('16:00', '已约满', false, true) +
+  '</div>' +
+  '<div class="field-label">担保方式 <a>规则说明</a></div>' +
+  '<div class="spec-list">' +
+    spec(true, '余额冻结', '冻结 ¥30，服务完成后按实结算') +
+    spec(false, t.cardName, '预扣 1 次，服务完成后核销返还') +
+  '</div>' +
+  '<div class="field-label">到店信息</div>' +
+  '<div class="card" style="padding:13px">' +
+    '<div class="store-card">' +
+      '<span class="store-card__ic">' + icon('i-paw') + '</span>' +
+      '<div class="store-card__t">' +
+        '<b>萌爪宠物生活馆 <span class="tag tag--ok">营业中</span></b>' +
+        '<span>' + icon('i-pin') + '幸福路 88 号临街商铺 · 距您 800m</span>' +
+      '</div>' +
+      '<button class="store-card__nav">' + icon('i-pin') + '导航</button>' +
+    '</div>' +
+    '<div class="store-card__hours">' +
+      '<span><b>周一至周五</b> 09:00-20:00</span>' +
+      '<span><b>周末</b> 09:00-21:00</span>' +
+      '<span>' + icon('i-phone') + ' 400-888-6666</span>' +
+    '</div>' +
+  '</div>' +
+  '<div class="submit-bar"><div class="submit-bar__txt"><b>冻结 ¥30</b>' + t.payNote + '</div>' +
+    '<button class="btn">' + icon(CTA_ICON[t.id]) + '提交预约</button></div>';
+
+  function step(n, name, on) {
+    return '<span class="step' + (on ? ' is-on' : '') + '"><i>' + n + '</i>' + name + '</span>';
+  }
+  function petChip(name, type, on) {
+    return '<button class="pet-chip' + (on ? ' is-on' : '') + '"><span class="ava">' +
+      (on ? (isCat ? '🐱' : (isDog ? '🐶' : '🐾')) : '🐾') + '</span><b>' + name + '</b><span>' + type + '</span></button>';
+  }
+  function spec(on, name, sub) {
+    return '<button class="spec' + (on ? ' is-on' : '') + '"><span class="spec__radio"></span>' +
+      '<span class="spec__txt"><b>' + name + '</b><span>' + sub + '</span></span></button>';
+  }
+  function day(w, d, on, full) {
+    return '<button class="day' + (on ? ' is-on' : '') + (full ? ' is-full' : '') + '"><span>' + w + '</span><b>' + d + '</b></button>';
+  }
+  function slot(time, left, on, full) {
+    return '<button class="slot' + (on ? ' is-on' : '') + (full ? ' is-full' : '') + '">' + time + '<small>' + left + '</small></button>';
+  }
+}
+
+function pageMall(t) {
+  var isCat = t.id === 'cat', isDog = t.id === 'dog';
+  var mainPet = isDog ? '狗狗' : '猫咪';
+  return '' +
+  '<div class="search">' + icon('i-search') + '搜索商品，如「冻干」「猫砂」</div>' +
+  '<div class="chips">' +
+    chip('全部', true) + chip('洗护', false) + chip('零食', false) + chip('用品', false) + chip('护理', false) + chip('保健', false) +
+  '</div>' +
+  '<div class="mall-sale"><img src="' + t.banner + '" alt="限时特卖专区">' +
+    '<div class="mall-sale__veil"></div>' +
+    '<div class="mall-sale__txt"><span class="tag">' + t.saleTag + '</span>' +
+    '<h5>' + t.saleWord + '专场 · ' + mainPet + '囤货节</h5>' +
+    '<div class="countdown"><b>02</b>:<b>41</b>:<b>33</b> 后结束</div></div>' +
+  '</div>' +
+  '<div class="sec-head"><h4>' + icon('i-sparkle') + mainPet + '精选</h4><a>更多 ' + icon('i-arrow') + '</a></div>' +
+  '<div class="goods-grid">' +
+    good('#B8A88F', 'i-brush', '宠物香氛沐浴露 500ml', '洗护 · 温和低敏，留香 7 天', 89.00) +
+    good('#F4A259', 'i-food', '冻干鸡肉粒 100g', '零食 · 纯鸡肉冻干，零添加', 39.00) +
+    good('#7BC0F2', 'i-ball', '豆腐猫砂 6L', '用品 · 可冲厕所，低粉尘', 45.00) +
+    good('#B5D99C', 'i-vip', '宠物益生菌 60 粒', '保健 · 调理肠胃，缓解软便', 128.00) +
+  '</div>';
+
+  function chip(name, on) { return '<button class="chip' + (on ? ' is-on' : '') + '">' + name + '</button>'; }
+  function good(bg, ic, name, sub, now) {
+    return '<div class="goods"><div class="goods__img" style="background:' + bg + '">' + icon(ic) + '</div>' +
+      '<div class="goods__bd"><b>' + name + '</b><span>' + sub + '</span>' +
+      '<div class="goods__ft"><div><div class="price"><small>¥</small>' + now.toFixed(2) + '</div>' +
+      '<div class="price--member">到店自提</div></div>' +
+      '<button class="goods__cart" aria-label="加入购物车">' + icon('i-mall') + '</button></div></div></div>';
+  }
+}
+
+function pageMe(t) {
+  var isCat = t.id === 'cat', isDog = t.id === 'dog';
+  var pets = PETS[t.id];
+  var idx = Math.min(petIdx[t.id] || 0, pets.length - 1);
+  var level = t.vipName.replace('会员', '');
+  return '' +
+  '<div class="card me-card">' +
+    '<span class="me-card__deco"></span>' +
+    '<div class="me-ava">' + avaDecor(t) + (isCat ? '🐱' : (isDog ? '🐶' : '🐾')) + '</div>' +
+    '<div class="me-card__name"><b>橘子妈妈</b>' +
+      '<span class="me-card__lvl">' + icon('i-vip') + t.vipName + ' · ' + t.vipOff + '</span></div>' +
+    '<div class="me-card__grow"><div class="me-card__bar"><i></i></div>' +
+      '<span>成长值 1,280 · 距' + t.nextLevel + '会员还差 720</span></div>' +
+    '<div class="me-card__stats">' +
+      '<div><b>¥86.50</b><span>' + t.walletName + '</span></div>' +
+      '<div><b>2 张</b><span>次卡</span></div>' +
+      '<div><b>1 条</b><span>退款记录</span></div>' +
+      '<div><b>' + level + '</b><span>当前等级</span></div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="recharge-strip">' + icon('i-wallet') + '<b>充 300 送 30，充得越多送得越多</b>' +
+    '<button class="btn btn--sm">去充值</button></div>' +
+  '<div class="sec-head" style="margin-top:2px"><h4>' + icon('i-paw') + t.petSec + '</h4>' +
+    '<a>' + t.addPet + ' ' + icon('i-arrow') + '</a></div>' +
+  petCard(pets[idx], t) +
+  '<div class="pet-dots">' + pets.map(function (p, i) {
+    return '<button class="pet-dot' + (i === idx ? ' is-on' : '') + '" data-pet-idx="' + i + '" aria-label="查看' + p.name + '的档案"></button>';
+  }).join('') + '</div>' +
+  '<div class="card" style="margin-top:12px">' +
+    meRow('i-order', '我的订单', '待服务 1') +
+    meRow('i-pin', '门店信息', '萌爪宠物生活馆 · 800m') +
+    meRow('i-phone', '联系客服', '') +
+  '</div>';
+
+  function meRow(ic, name, extra) {
+    return '<button class="me-card-row" style="width:100%"><span class="me-card-row__ic">' + icon(ic) + '</span>' +
+      '<b>' + name + (extra ? '<i>' + extra + '</i>' : '') + '</b>' + icon('i-arrow') + '</button>';
+  }
+}
+
+var PAGE_RENDER = { home: pageHome, price: pagePrice, appt: pageAppt, mall: pageMall, me: pageMe };
+var PAGE_TITLE = { home: '', price: '价目表', appt: '服务预约', mall: '宠物商城', me: '我的' };
+
+/* ---------- 渲染 ---------- */
+var current = 'home';
+
+function renderTabs() {
+  var el = document.getElementById('pageTabs');
+  el.innerHTML = PAGES.map(function (p) {
+    var extra = p.id === 'appt' ? ' <span class="badge">冻结担保</span>' : '';
+    return '<button class="page-tab" role="tab" data-page="' + p.id + '">' + icon(p.ic) + p.name + extra + '</button>';
+  }).join('');
+}
+
+function phoneShell(themeId) {
+  var t = THEMES[themeId];
+  return '<section class="phone" data-theme="' + themeId + '" aria-label="' + t.name + '原型">' +
+    '<div class="phone__shell"><div class="phone__screen">' +
+      '<div class="statusbar"><span>9:41</span><span class="sig"><i></i><i></i><i></i><i></i></span><span class="batt"></span></div>' +
+      '<div class="appbar"><span class="appbar__title" data-role="title"></span></div>' +
+      '<div class="screen__body" data-role="body"></div>' +
+      '<nav class="tabbar" data-role="tabbar"></nav>' +
+    '</div></div>' +
+    '<div class="phone__meta"><h3>' + t.name + '<em>' + t.en + '</em></h3><p>' + t.desc + '</p></div>' +
+  '</section>';
+}
+
+function renderTabbar(phone, themeId) {
+  var bar = phone.querySelector('[data-role="tabbar"]');
+  bar.innerHTML = PAGES.map(function (p) {
+    if (p.id === 'appt') {
+      return '<button class="tab tab--center' + (current === p.id ? ' is-active' : '') + '" data-page="appt" aria-label="服务预约">' +
+        '<span class="tab__btn">' + icon('i-cal') + '</span></button>';
+    }
+    return '<button class="tab' + (current === p.id ? ' is-active' : '') + '" data-page="' + p.id + '">' +
+      icon(p.ic) + '<span>' + p.name + '</span></button>';
+  }).join('');
+}
+
+function renderPage(page) {
+  current = page;
+  document.querySelectorAll('.page-tab').forEach(function (b) {
+    b.classList.toggle('is-active', b.dataset.page === page);
+  });
+  document.querySelectorAll('.phone').forEach(function (phone) {
+    var themeId = phone.dataset.theme;
+    var t = THEMES[themeId];
+    phone.querySelector('[data-role="body"]').innerHTML = PAGE_RENDER[page](t);
+    phone.querySelector('[data-role="title"]').textContent =
+      page === 'home' ? t.appbarHome : PAGE_TITLE[page];
+    renderTabbar(phone, themeId);
+    phone.querySelector('.screen__body').scrollTop = 0;
+  });
+}
+
+/* ---------- 设计规范区 ---------- */
+var SWATCHES = {
+  standard: ['#B8551D', '#7E3710', '#F9EFE7', '#D97757', '#FAF7F4'],
+  cat: ['#D9587A', '#B84A65', '#FDEEF2', '#F4A259', '#FFF8F6'],
+  dog: ['#3380CE', '#24619E', '#E8F2FC', '#F7B32B', '#F2F8FD']
+};
+var SWATCH_LABELS = ['主色', '深主色', '柔和底', '点缀', '背景'];
+
+function renderSpec() {
+  var el = document.getElementById('specGrid');
+  el.innerHTML = Object.keys(THEMES).map(function (id) {
+    var t = THEMES[id];
+    var sw = SWATCHES[id].map(function (c, i) {
+      return '<div class="swatch"><i style="background:' + c + '"></i><span>' + SWATCH_LABELS[i] + '<br>' + c + '</span></div>';
+    }).join('');
+    return '<div class="spec-card" data-theme="' + id + '">' +
+      '<h3><i style="background:' + t.chip + '"></i>' + t.name + '</h3>' +
+      '<p>' + t.desc + ' · 文案语气「' + t.greet + '」</p>' +
+      '<div class="swatches">' + sw + '</div>' +
+      '<div class="spec-demo">' +
+        '<div class="row"><button class="btn">' + icon(CTA_ICON[id]) + t.ctaBook + '</button>' +
+          '<button class="btn btn--ghost btn--sm">次卡商店</button>' +
+          '<span class="tag tag--sale">' + t.saleTag + '</span></div>' +
+        '<div class="row"><span class="price"><small>¥</small>88</span>' +
+          '<span class="price--member">会员 ¥77.4</span>' +
+          '<span class="tag tag--vip">8.8 折</span></div>' +
+        '<div class="spec-radius"><i></i><i></i><i></i><i></i><span>圆角阶梯 ' +
+          (id === 'cat' ? '14 / 18 / 24（超圆）' : id === 'dog' ? '10 / 14 / 18（运动感）' : '8 / 10 / 14（标准）') + '</span></div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ---------- 启动 ---------- */
+renderTabs();
+document.getElementById('phones').innerHTML =
+  phoneShell('standard') + phoneShell('cat') + phoneShell('dog');
+renderSpec();
+renderPage('home');
+
+document.addEventListener('click', function (e) {
+  var pageBtn = e.target.closest('[data-page]');
+  if (pageBtn) {
+    var id = pageBtn.dataset.page;
+    if (PAGES.some(function (p) { return p.id === id; })) { renderPage(id); }
+    return;
+  }
+  var petDot = e.target.closest('[data-pet-idx]');
+  if (petDot) {
+    var phone = petDot.closest('.phone');
+    if (phone) {
+      var themeId = phone.dataset.theme;
+      petIdx[themeId] = parseInt(petDot.dataset.petIdx, 10) || 0;
+      var body = phone.querySelector('[data-role="body"]');
+      var st = body.scrollTop;
+      body.innerHTML = PAGE_RENDER[current](THEMES[themeId]);
+      body.scrollTop = st;
+    }
+    return;
+  }
+  var chip = e.target.closest('.chip, .pet-chip, .spec, .day, .slot, .tab');
+  if (chip) {
+    var scope = chip.parentElement;
+    if (chip.classList.contains('tab')) return;
+    if (scope) {
+      scope.querySelectorAll('.chip, .pet-chip, .spec, .day, .slot').forEach(function (s) {
+        s.classList.remove('is-on');
+      });
+      chip.classList.add('is-on');
+    }
+  }
+});
+</script>
+</body>
+</html>

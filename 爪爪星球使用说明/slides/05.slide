@@ -1,0 +1,41 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>核心流程：从预约到结算，一条线走通</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>以下截图全部来自真实运行系统（演示数据）</Text>
+  </Box>
+  <Box style={{ flexDirection: 'row', gap: 8, alignItems: 'center', marginBottom: 16 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: '12px 10px', alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#2B241F', textAlign: 'center' }}>1. 小程序预约{'\n'}余额/次卡担保</Text>
+    </Box>
+    <Text style={{ fontSize: 20, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: '12px 10px', alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#2B241F', textAlign: 'center' }}>2. 出示核销码{'\n'}二维码或 8 位数字</Text>
+    </Box>
+    <Text style={{ fontSize: 20, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#B8551D', borderRadius: 12, padding: '12px 10px', alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#FFFFFF', textAlign: 'center', fontWeight: 'bold' }}>3. 后台扫码核销{'\n'}状态变为已到店</Text>
+    </Box>
+    <Text style={{ fontSize: 20, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: '12px 10px', alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#2B241F', textAlign: 'center' }}>4. 到店结算{'\n'}余额抵扣/次卡核销</Text>
+    </Box>
+    <Text style={{ fontSize: 20, color: '#B8551D' }}>→</Text>
+    <Box style={{ flex: 1, background: '#4E7A62', borderRadius: 12, padding: '12px 10px', alignItems: 'center' }}>
+      <Text style={{ fontSize: 15, color: '#FFFFFF', textAlign: 'center', fontWeight: 'bold' }}>5. 全程留痕{'\n'}谁做的、改了什么</Text>
+    </Box>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 18 }}>
+    <Box style={{ flex: 1 }}>
+      <Image src="assets/verify_ok.png" style={{ width: '100%', height: 258, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 8 }}>核销成功：预约号、服务、宠物当场确认，状态即变「已到店」</Text>
+    </Box>
+    <Box style={{ flex: 1.25 }}>
+      <Image src="assets/settle_done.png" style={{ width: '100%', height: 258, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 8 }}>到店结算：服务端按门店与规格重算金额，选「余额抵扣」即扣减，改价必填原因</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>06 / 08</Text>
+  </Box>
+</Slide>

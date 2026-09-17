@@ -1,0 +1,41 @@
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Java / Maven ----
+target/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+dependency-reduced-pom.xml
+
+# ---- 本地配置与密钥（严禁入库）----
+application-local.yml
+application-prod-local.yml
+*.pem
+*.key
+*.p12
+.env
+.env.*
+
+# ---- 小程序 ----
+petshop-miniapp/node_modules/
+petshop-miniapp/miniprogram_npm/
+petshop-miniapp/.idea/
+petshop-miniapp/project.private.config.json
+# TS-only 工程：miniprogram/ 下的 .js 只会是 tsc 兜底产物
+# （正常由微信开发者工具在内存里剥类型，磁盘上不应存在）
+petshop-miniapp/miniprogram/**/*.js
+
+# ---- IDE ----
+.idea/
+*.iml
+.vscode/
+
+# ---- 工具元数据与运行日志（本地专用，不入库）----
+.workbuddy/
+.slidep/
+*.log

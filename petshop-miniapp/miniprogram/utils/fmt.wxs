@@ -1,0 +1,16 @@
+/** WXS：金额与日期格式化（WXML 中直接使用） */
+var money = function (n) {
+  if (n === null || n === undefined) return '0.00'
+  return Number(n).toFixed(2)
+}
+
+var dateText = function (date) {
+  if (!date) return ''
+  var d = getDate(date)
+  return (d.getMonth() + 1) + '月' + d.getDate() + '日'
+}
+
+module.exports = {
+  money: money,
+  dateText: dateText
+}

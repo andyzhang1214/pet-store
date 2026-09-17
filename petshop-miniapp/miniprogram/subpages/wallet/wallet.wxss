@@ -1,0 +1,70 @@
+.balance-card {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-text) 100%);
+  border-radius: var(--radius);
+  padding: 48rpx 40rpx;
+  color: #fff;
+  margin-bottom: 24rpx;
+}
+.balance-label { font-size: 24rpx; opacity: 0.85; }
+.balance-num { font-size: 64rpx; font-weight: 700; margin-top: 8rpx; }
+.balance-sub { font-size: 22rpx; opacity: 0.85; margin-top: 12rpx; }
+.balance-btn {
+  display: inline-block;
+  margin-top: 32rpx;
+  background: #fff;
+  color: var(--brand-text);
+  font-size: 26rpx;
+  font-weight: 600;
+  padding: 12rpx 40rpx;
+  border-radius: 999rpx;
+}
+
+.ledger-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid var(--line);
+}
+.ledger-item:last-child { border-bottom: none; }
+.ledger-biz { font-size: 28rpx; color: var(--ink); font-weight: 500; }
+.ledger-time { font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+.ledger-right { text-align: right; }
+.ledger-amt { font-size: 30rpx; font-weight: 700; color: var(--ink); }
+.ledger-amt.out { color: var(--danger); }
+.ledger-after { font-size: 22rpx; color: var(--muted); margin-top: 4rpx; }
+
+.card-item {
+  padding: 24rpx 0;
+  border-bottom: 2rpx solid var(--line);
+}
+.card-item:last-child { border-bottom: none; }
+.card-item-head { display: flex; justify-content: space-between; align-items: center; }
+.card-item-name { font-size: 28rpx; color: var(--ink); font-weight: 600; }
+.card-item-line { font-size: 24rpx; color: var(--ink); margin-top: 8rpx; }
+.card-item-line.muted { color: var(--muted); font-size: 22rpx; }
+.card-item-actions { display: flex; justify-content: flex-end; margin-top: 16rpx; }
+
+.status { font-size: 22rpx; padding: 6rpx 18rpx; border-radius: 999rpx; }
+.status.ok { background: #EAF7E0; color: #389E0D; }
+.status.warn { background: #FFF7E0; color: #B27B00; }
+.status.info { background: #E6F4FF; color: #1677FF; }
+.status.danger { background: #FFECE8; color: #CF1322; }
+.status.muted { background: var(--card-muted); color: var(--muted); }
+
+.mini-btn {
+  font-size: 24rpx;
+  color: var(--brand-text);
+  border: 2rpx solid var(--brand);
+  border-radius: 999rpx;
+  padding: 10rpx 32rpx;
+}
+.mini-btn.plain { color: var(--muted); border-color: var(--line); }
+
+.refund-tip {
+  font-size: 22rpx;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-top: 16rpx;
+  border-top: 2rpx solid var(--line);
+}

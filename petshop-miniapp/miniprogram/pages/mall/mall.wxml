@@ -1,0 +1,57 @@
+<view class="page theme-{{theme}}">
+  <view class="top-row">
+    <view class="top-title">爪爪商城</view>
+    <view class="orders-link" bindtap="goOrders">我的订单 ›</view>
+  </view>
+
+  <view class="sale-banner">🧧 门店自提 · 下单后到店出示自提码</view>
+
+  <!-- 横向滚动：分类数量由服务端数据决定，可能很多，用 nowrap + inline-block 保证不换行 -->
+  <scroll-view class="cat-bar" scroll-x wx:if="{{categories.length > 1}}">
+    <view
+      class="cat-item {{activeCategory === item ? 'on' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="*this"
+      data-key="{{item}}"
+      bindtap="pickCategory"
+    >{{item}}</view>
+  </scroll-view>
+
+  <view class="goods-grid" wx:if="{{goods.length > 0}}">
+    <view
+      class="goods-item"
+      wx:for="{{goods}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="openGoods"
+    >
+      <view class="goods-thumb">{{item.category}}</view>
+      <view class="goods-body">
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-desc">{{item.description}}</view>
+        <view class="goods-foot">
+          <view class="goods-price">
+            <text class="price-symbol">¥</text>{{item.priceText}}<text class="goods-from"> 起</text>
+          </view>
+          <view class="sold-out" wx:if="{{item.soldOut}}">已售罄</view>
+          <view class="goods-stock" wx:else>{{item.skuCount}} 种规格</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:elif="{{loading}}">
+    <text class="empty-icon">🛍</text>
+    正在加载商品…
+  </view>
+
+  <view class="empty" wx:elif="{{failed}}">
+    <text class="empty-icon">😿</text>
+    商品加载失败，下拉可重试
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">🛍</text>
+    该分类下暂无商品
+  </view>
+</view>

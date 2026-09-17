@@ -1,0 +1,63 @@
+<view class="page theme-{{theme}}">
+  <block wx:if="{{goods}}">
+    <view class="card hero">
+      <view class="hero-thumb">{{goods.category}}</view>
+      <view class="hero-name">{{goods.name}}</view>
+      <view class="hero-desc">{{goods.description}}</view>
+    </view>
+
+    <view class="card">
+      <view class="card-title">选择规格</view>
+      <view class="sku-list">
+        <view
+          class="sku-item {{activeSkuId === item.id ? 'on' : ''}} {{item.soldOut ? 'off' : ''}}"
+          wx:for="{{skus}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="pickSku"
+        >
+          <view class="sku-name">{{item.name}}</view>
+          <view class="sku-price">¥{{item.priceText}}</view>
+          <view class="sku-stock">{{item.soldOut ? '已售罄' : '库存 ' + item.stock}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card qty-card">
+      <view class="card-title">购买数量</view>
+      <view class="qty-row">
+        <view class="qty-btn" data-delta="-1" bindtap="changeQty">−</view>
+        <view class="qty-value">{{qty}}</view>
+        <view class="qty-btn" data-delta="1" bindtap="changeQty">＋</view>
+        <view class="qty-hint">最多 {{maxQty}} 件</view>
+      </view>
+    </view>
+
+    <view class="tip-card">
+      下单即锁定库存；未支付的订单可在「我的订单」里取消，库存会立刻回补。
+      支付成功后凭订单里的自提码到店取货，未核销前可申请退款（退入账户余额）。
+    </view>
+
+    <view class="bar">
+      <view class="bar-price" wx:if="{{activeSku}}">
+        <text class="price-symbol">¥</text>{{activeSku.priceText}}
+      </view>
+      <button
+        class="btn-primary bar-btn"
+        bindtap="submit"
+        disabled="{{submitting || !activeSku || activeSku.soldOut}}"
+      >{{activeSku && activeSku.soldOut ? '该规格已售罄' : (submitting ? '提交中…' : '立即下单')}}</button>
+    </view>
+  </block>
+
+  <view class="empty" wx:elif="{{loading}}">
+    <text class="empty-icon">🛍</text>
+    正在加载商品…
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">😿</text>
+    商品不存在或已下架
+    <view class="btn-ghost back-btn" bindtap="goOrders">看看我的订单</view>
+  </view>
+</view>

@@ -1,0 +1,67 @@
+<wxs src="../../utils/fmt.wxs" module="fmt" />
+
+<view class="page theme-{{theme}}">
+
+  <!-- 头部：昵称与会员等级分两行 -->
+  <view class="profile">
+    <view class="avatar">{{theme === 'meow' ? '🐱' : theme === 'woof' ? '🐶' : '🐾'}}</view>
+    <view class="profile-text">
+      <view class="nickname">{{nickname || '铲屎官'}}</view>
+      <view class="level">{{levelName || '普通会员'}}</view>
+    </view>
+  </view>
+
+  <!-- 资金实时（不缓存） -->
+  <view class="card wallet-card">
+    <view class="wallet-cell">
+      <view class="wallet-num">¥{{walletInfo ? fmt.money(walletInfo.balance) : '--'}}</view>
+      <view class="wallet-label">余额</view>
+    </view>
+    <view class="wallet-cell">
+      <view class="wallet-num">¥{{walletInfo ? fmt.money(walletInfo.frozenAmount) : '--'}}</view>
+      <view class="wallet-label">冻结中</view>
+    </view>
+    <view class="wallet-cell">
+      <view class="wallet-num">¥{{walletInfo ? fmt.money(walletInfo.available) : '--'}}</view>
+      <view class="wallet-label">可用</view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="card">
+    <view class="entry" wx:for="{{entries}}" wx:key="key" data-url="{{item.url}}" bindtap="goEntry">
+      <view class="entry-icon">{{item.icon}}</view>
+      <view class="entry-text">
+        <view class="entry-title">{{item.title}}</view>
+        <view class="entry-desc">{{item.desc}}</view>
+      </view>
+      <view class="entry-arrow">›</view>
+    </view>
+  </view>
+
+  <!-- 门店信息 -->
+  <view class="card">
+    <view class="card-title">门店信息</view>
+    <view class="store-row">🕘 {{store.businessHours}}</view>
+    <view class="store-row">📍 {{store.address}}</view>
+    <view class="store-row link" bindtap="callStore">📞 {{store.phone}}（点击拨打）</view>
+  </view>
+
+  <!-- 主题切换 -->
+  <view class="card">
+    <view class="card-title">界面主题</view>
+    <view class="theme-row">
+      <view
+        class="theme-chip {{activeTheme === item.id ? 'on' : ''}}"
+        wx:for="{{themes}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="pickTheme"
+      >
+        <view class="theme-icon">{{item.icon}}</view>
+        <view class="theme-name">{{item.name}}</view>
+        <view class="theme-slogan">{{item.slogan}}</view>
+      </view>
+    </view>
+  </view>
+</view>

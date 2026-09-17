@@ -1,0 +1,24 @@
+# 生产环境配置（SPRING_PROFILES_ACTIVE=prod）
+#
+# 本文件只声明"生产与开发不同"的部分；所有敏感值一律通过环境变量注入，
+# 由 StartupSecurityGuard 在启动时校验，缺失或仍是开发默认值则拒绝启动。
+#   - DB_URL / DB_USERNAME / DB_PASSWORD
+#   - PETSHOP_JWT_SECRET      强随机串（建议 32 字节以上）
+#   - PETSHOP_ADMIN_TOKEN     后台管理令牌
+#   - WX_APPID / WX_SECRET    微信小程序凭据
+
+spring:
+  sql:
+    init:
+      mode: never
+
+petshop:
+  jwt:
+    secret: ${PETSHOP_JWT_SECRET:}
+  admin:
+    token: ${PETSHOP_ADMIN_TOKEN:}
+  wx:
+    # 生产严禁开启：mock 模式允许伪造 openid 登录 + 无支付入账
+    mock: ${PETSHOP_WX_MOCK:false}
+    appid: ${WX_APPID:}
+    secret: ${WX_SECRET:}

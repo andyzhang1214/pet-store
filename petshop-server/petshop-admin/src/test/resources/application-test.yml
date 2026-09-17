@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:petshop;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+
+petshop:
+  jwt:
+    secret: test-secret
+    ttl-hours: 1
+  admin:
+    token: test-admin-token
+  wx:
+    mock: true
+  mall:
+    # 关单任务在测试里保持"注册但不自动触发"：初始延迟调到 1 小时，避免它在测试跑到一半时
+    # 突然改库，让别的用例看到莫名其妙的订单状态。需要验证关单的用例显式调用 OrderExpiryJob.expire()。
+    expiry-initial-delay-ms: 3600000
+    order-timeout-minutes: 15
+  booking:
+    # 预约自动到店任务同理（约定见上）：默认初始延迟 30 秒，而全量测试要跑几分钟，
+    # 它会在后台把「昨天及更早的 PENDING 预约」刷成 ARRIVED ——
+    # 与 AppointmentFlowTest 显式触发的 confirmOverdue() 抢同一批数据，制造随机失败。
+    # 需要验证的用例显式调用 AppointmentAutoConfirmJob.confirmOverdue()。
+    auto-confirm-initial-delay-ms: 3600000

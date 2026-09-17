@@ -1,0 +1,23 @@
+<view class="page theme-{{theme}}">
+  <view class="hero">
+    <view class="hero-greeting">{{greeting}}</view>
+    <view class="hero-store">爪爪星球 · 宠物生活馆</view>
+  </view>
+
+  <view class="main-card" bindtap="goBooking">
+    <view class="main-card-left">
+      <view class="main-card-title">服务预约</view>
+      <view class="main-card-desc">洗护 · 美容 · 药浴 · 寄养</view>
+      <view class="main-card-btn">立即预约</view>
+    </view>
+    <view class="main-card-icon">🐾</view>
+  </view>
+
+  <view class="quick-grid">
+    <view class="quick-item" wx:for="{{quickEntries}}" wx:key="key" data-url="{{item.url}}" data-tab="{{item.tab}}" bindtap="goEntry">
+      <view class="quick-icon">{{item.icon}}</view>
+      <view class="quick-title">{{item.title}}</view>
+      <view class="quick-desc">{{item.desc}}</view>
+    </view>
+  </view>
+</view>

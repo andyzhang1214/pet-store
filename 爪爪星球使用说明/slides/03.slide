@@ -1,0 +1,38 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>顾客端小程序：6 大功能</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>顾客自助完成「约、买、养、付」，到店只需出示一个码</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 16, marginBottom: 16 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>📅 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>服务预约</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>按宠物类型与毛长自动匹配规格价目，选时段下单。预约生成 8 位核销码，到店出示给店员。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>🛍️ <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>商城下单</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>商品在线下单、线上支付，生成自提码，到店自提时由后台核销；核销后不再支持线上退款。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>🐶 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>宠物档案</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>登记宠物类型、毛长、体重、生日与绝育情况，作为服务规格匹配与健康档案的依据。</Text>
+    </Box>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 16 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>💰 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>钱包与次卡</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>储值余额与次卡同页管理：充值档位带赠送金，每笔动账都有流水与余额快照，随时可查。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>💉 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>健康档案</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>疫苗、驱虫、美容记录自动累积；到期临近或逾期在门店后台看板置顶提醒，不漏针。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 26 }}>🔐 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#B8551D' }}>免注册登录</Text></Text>
+      <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.65, marginTop: 10 }}>微信授权即可登录，首次进入自动建档，无需注册账号。</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>02 / 08</Text>
+  </Box>
+</Slide>

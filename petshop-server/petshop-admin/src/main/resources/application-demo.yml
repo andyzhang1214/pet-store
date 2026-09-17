@@ -1,0 +1,50 @@
+# ============================================================================
+# demo：本机零依赖运行（H2 内存库 + 演示数据）
+#
+# 目的：不装 MySQL 也能把后台起起来看效果 —— 演示、截图、给同事过一遍流程。
+#
+# 启动方式（两个 profile 一起用，原因见下）：
+#   SPRING_PROFILES_ACTIVE=dev,demo mvn -o -Pdemo -pl petshop-admin spring-boot:run
+#   （pom 里的 demo profile 负责把 H2 从 test 作用域提到 runtime）
+#
+# 为什么要带上 dev：
+#   StartupSecurityGuard 只在 dev / local / test 下把配置视为开发期配置，
+#   其余 profile 一律按生产校验（共享令牌必须关闭、wx.mock 必须为 false），
+#   不满足就拒绝启动。这是「失败关闭」的设计，故意的 —— 一个拼错的 profile 名
+#   不应该让一个任何人都能进的后台静默上线。所以这里不去改白名单，
+#   而是显式声明这是个 dev 类环境（也正是守卫提示里推荐的做法）。
+#
+# 与 test profile 的差别：test 是给自动化测试用的（随机端口、关单任务不触发），
+# demo 是给人看的（固定 8080、带会员与健康档案演示数据）。
+# 两者都不允许出现在生产环境。
+# ============================================================================
+spring:
+  datasource:
+    url: jdbc:h2:mem:petshop;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/01_schema.sql
+      # 02 是配置域基础数据（服务/规格/价目/卡型/档位/门店规则），
+      # 09 是业务演示数据（会员/宠物/健康档案/次卡），只在 demo 下一起灌。
+      # 演示数据排在 09 是为了跟 03~08_migration.sql 的迁移号段分开 ——
+      # 演示会员数据绝不能被执行迁移的工具当成一个迁移步骤带进生产库（对应审查 P2-2）。
+      data-locations: classpath:db/02_seed.sql,classpath:db/09_demo.sql
+
+petshop:
+  jwt:
+    secret: demo-secret-not-for-production
+  admin:
+    # 共享令牌保留开启：演示时可以不带账号直接进后台，
+    # 也方便用 curl 对接口做联调。生产环境由 StartupSecurityGuard 强制关闭。
+    shared-token-enabled: true
+  wx:
+    mock: true
+  mall:
+    # 关单任务注册但不自动触发。演示途中若有未支付订单被悄悄关掉，
+    # 截图与讲解会对不上；需要验证时手动调 POST /admin/orders/close-expired。
+    expiry-enabled: true
+    expiry-initial-delay-ms: 3600000

@@ -1,0 +1,32 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>门店后台：14 个功能页，三组分工</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>店员做日常作业，店长管配置与钱，所有人都能查留痕</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ width: 470, justifyContent: 'space-between' }}>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '12px 16px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>🧑‍💼 日常作业（店员即可）</Text>
+        <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 6 }}>核销台 · 预约管理 · 到店结算 · 订单管理 · 退款审核</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '12px 16px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>🧾 配置管理（店长权限）</Text>
+        <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 6 }}>商品与库存 · 服务与价目 · 卡与充值档位 · 会员等级 · 门店规则 · 后台账号</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '12px 16px' }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#B8551D' }}>🔍 监督与留痕（全员可见）</Text>
+        <Text style={{ fontSize: 15, color: '#2B241F', lineHeight: 1.7, marginTop: 6 }}>会员管理与健康看板 · 配置变更审计</Text>
+      </Box>
+    </Box>
+    <Box style={{ flex: 1, gap: 14 }}>
+      <Image src="assets/goods.png" style={{ width: '100%', height: 236, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 14, color: '#8A7A6D', marginTop: 4 }}>商品与库存：SKU 库存、盘点报损、改价留痕、上下架</Text>
+      <Image src="assets/members.png" style={{ width: '100%', height: 210, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 14, color: '#8A7A6D', marginTop: 4 }}>会员管理：健康看板按到期日排序，疫苗/驱虫逾期置顶</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>05 / 08</Text>
+  </Box>
+</Slide>

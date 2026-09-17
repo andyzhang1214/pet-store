@@ -1,0 +1,46 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>小程序使用指引 ①：预约到店服务</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>从登录到拿到核销码，四步完成，全程无需打电话</Text>
+  </Box>
+  <Box style={{ flexDirection: 'row', gap: 14, marginTop: 10 }}>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 30 }}>👤</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 8 }}>第 1 步 · 登录建档</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>微信授权即可进入，无需注册。首次使用先在「我的」里添加宠物档案：类型、毛长、体重、生日。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 30 }}>📅</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 8 }}>第 2 步 · 选服务选时段</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>首页挑服务，系统按宠物类型与毛长自动匹配对应价目；选一个有空位的日期时间即可下单。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 30 }}>🎫</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D', marginTop: 8 }}>第 3 步 · 选担保方式</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.7, marginTop: 8 }}>可用余额担保（冻结部分余额）或次卡预扣 1 次；临时来不了，预扣的次数到时自动回补。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#B8551D', borderRadius: 14, padding: 18 }}>
+      <Text style={{ fontSize: 30 }}>📱</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF', marginTop: 8 }}>第 4 步 · 出示核销码</Text>
+      <Text style={{ fontSize: 14.5, color: '#FFFFFF', lineHeight: 1.7, marginTop: 8 }}>预约详情里显示 8 位核销码和二维码，到店出示给店员扫码，状态立即变「已到店」。</Text>
+    </Box>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 16, marginTop: 18 }}>
+    <Box style={{ flex: 1, background: '#FFF6EC', border: '1px solid #EADCC8', borderRadius: 12, padding: '14px 18px' }}>
+      <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#B8551D' }}>顾客常见问题</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.8, marginTop: 6 }}>{`· 码找不到了？——「预约记录」里随时可以重新调出
+· 想换时间？——在预约记录里查看状态后联系门店改期
+· 没充余额也能约？——可以，不选担保直接预约即可`}</Text>
+    </Box>
+    <Box style={{ flex: 1, background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+      <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#B8551D' }}>店员配合动作</Text>
+      <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.8, marginTop: 6 }}>{`· 顾客到店 → 打开后台「核销台」扫顾客的码
+· 核销成功后当场跟顾客确认服务项目与宠物
+· 顾客爽约不用手工处理，未到店次日自动回补`}</Text>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>03 / 08</Text>
+  </Box>
+</Slide>

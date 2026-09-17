@@ -1,0 +1,35 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '20px 60px', display: 'flex', flexDirection: 'column' }}>
+  <Box style={{ height: 84, justifyContent: 'center' }}>
+    <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#2B241F' }}>后台核销台：三种核销方式</Text>
+    <Text style={{ fontSize: 16, color: '#8A7A6D', marginTop: 6 }}>顾客出示码，店员在「核销台」一页完成签到与提货</Text>
+  </Box>
+  <Box style={{ flex: 1, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ width: 560 }}>
+      <Image src="assets/verify_desk.png" style={{ width: 560, height: 288, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8' }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 6 }}>核销台分「预约签到」与「商品自提」两个入口，操作方式相同</Text>
+      <Image src="assets/qr_sheet.png" style={{ width: 560, height: 178, objectFit: 'cover', borderRadius: 12, border: '1px solid #EADCC8', marginTop: 10 }} />
+      <Text style={{ fontSize: 15, color: '#2B241F', marginTop: 6 }}>预约/订单详情点「出码」即可把二维码打给顾客出示；旁边同步显示 8 位大字码</Text>
+    </Box>
+    <Box style={{ flex: 1, gap: 12 }}>
+      <Box style={{ background: '#B8551D', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFFFFF' }}>① 摄像头扫码（推荐）</Text>
+        <Text style={{ fontSize: 14.5, color: '#FFFFFF', lineHeight: 1.6, marginTop: 6 }}>点「📷 扫码」对准顾客手机上的二维码，识别后自动填码并核销，不需要手动输入。</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D' }}>② USB 扫码枪</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.6, marginTop: 6 }}>门店有扫码枪的优先用它：点一下输码框，直接扫顾客的码，即扫即核销。</Text>
+      </Box>
+      <Box style={{ background: '#F5EBDD', borderRadius: 12, padding: '14px 18px' }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#B8551D' }}>③ 手动输码（兜底）</Text>
+        <Text style={{ fontSize: 14.5, color: '#2B241F', lineHeight: 1.6, marginTop: 6 }}>顾客口报 8 位数字，直接输入后点确认。设备不给力时永远有这条路。</Text>
+      </Box>
+      <Box style={{ background: '#FFF6EC', border: '1px solid #EADCC8', borderRadius: 12, padding: '12px 18px' }}>
+        <Text style={{ fontSize: 14, color: '#8A7A6D', lineHeight: 1.6 }}>⚠️ 摄像头扫码需要在带 https 的后台地址下使用；扫码枪与手输不受影响。核销成功当场显示预约号、服务与宠物，跟顾客口头确认即可。</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>爪爪星球 · 使用说明</Text>
+    <Text style={{ fontSize: 14, color: '#8A7A6D' }}>07 / 08</Text>
+  </Box>
+</Slide>
